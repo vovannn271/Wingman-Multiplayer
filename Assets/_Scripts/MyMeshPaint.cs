@@ -11,7 +11,7 @@ using ExitGames.Client.Photon;
 /// Full system for advanced mesh painting
 /// </summary>
 [AddComponentMenu( MD_Debug.ORGANISATION + MD_Debug.PACKAGENAME + "Mesh Paint" )]
-    public class MyMeshPaint : MonoBehaviourPunCallbacks
+    public class MyMeshPaint : MonoBehaviour, IOnEventCallback
 {
         //MESH DATA
         [SerializeField] private List<Vector3> internal_vertices = new List<Vector3>();
@@ -691,14 +691,27 @@ using ExitGames.Client.Photon;
             Meshf.mesh.RecalculateBounds();
 
             //Vova start
-            SpawnPlayer( Meshf.gameObject );
+             SpawnPlayer( Meshf.gameObject );
+            
             //Multiplayer here
             //Vova end
         }
     #endregion
 
     #region MULTIPLAYER
-    
+
+    private void OnEnable()
+    {
+        PhotonNetwork.AddCallbackTarget( this );
+    }
+
+    private void OnDisable()
+    {
+        PhotonNetwork.RemoveCallbackTarget( this );
+    }
+
+
+
     byte CustomManualInstantiationEventCode = 120;
     GameObject sapwnGO;
     public void SpawnPlayer( GameObject spawnedObject )
@@ -743,7 +756,7 @@ using ExitGames.Client.Photon;
 
     public void OnEvent( EventData photonEvent )
     {
-            Debug.Log( "On event viewID "  );
+            Debug.Log( "On event viewID " + CustomManualInstantiationEventCode );
         if (photonEvent.Code == CustomManualInstantiationEventCode)
         {
             object[] data = (object[])photonEvent.CustomData;
