@@ -501,7 +501,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 596610064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71d4394bf23738e498c3afadd1c02bd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 86f25bc8c26661c4b9536fdc01f354a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   internal_vertices: []
@@ -519,13 +519,13 @@ MonoBehaviour:
   internal_BrushRoot: {fileID: 0}
   MP_Platform: 0
   MP_INPUT_PC_MeshPaintInput: 324
-  MP_BrushSize: 0.5
-  MP_SmoothBrushMovement: 1
+  MP_BrushSize: 0.2
+  MP_SmoothBrushMovement: 0
   MP_BSmoothMSpeed: 10
   MP_SmoothBrushRotation: 1
   MP_BSmoothRSpeed: 20
   MP_DistanceLimitation: 1
-  MP_MinDistanceLimit: 0.5
+  MP_MinDistanceLimit: 0.3
   MP_ConnectMeshOnRelease: 0
   MP_MeshPaintType: 1
   MP_RotationMode: 0
@@ -535,25 +535,32 @@ MonoBehaviour:
   MP_TypeScreen_TargetCamera: {fileID: 0}
   MP_TypeScreen_Depth: 10
   MP_TypeRaycast_RaycastFromCursor: 1
-  MP_TypeRaycast_RaycastOriginFORWARD: {fileID: 1072893618}
+  MP_TypeRaycast_RaycastOriginFORWARD: {fileID: 0}
   MP_TypeRaycast_AllowedLayers:
     serializedVersion: 2
     m_Bits: 64
   MP_TypeRaycast_CastAllObjects: 1
   MP_TypeRaycast_TagForRaycast: 
-  MP_TypeRaycast_BrushOffset: {x: 0, y: 1, z: 0}
-  MP_TypeRaycast_IgnoreSelfCasting: 1
+  MP_TypeRaycast_BrushOffset: {x: 0, y: 0.2, z: 0}
+  MP_TypeRaycast_IgnoreSelfCasting: 0
   MP_TypeCustom_DRAW: 0
   MP_TypeCustom_CustomBrushTransform: 1
   MP_TypeCustom_EnableSmartRotation: 1
-  MP_TypeCustom_BrushParent: {fileID: 1390164507}
-  MP_CurrentlySelectedAppearanceSlot: 0
+  MP_TypeCustom_BrushParent: {fileID: 0}
+  MP_CurrentlySelectedAppearanceSlot: 3
   MP_MaterialSlots: 0
-  MP_Color_AvailableMaterials: []
+  MP_Color_AvailableMaterials:
+  - {fileID: 2100000, guid: 525aef1045380f540a2a69e303cdb61f, type: 2}
   MP_Color_AvailableColors:
-  - {r: 0.6226415, g: 0.025793185, b: 0.014684939, a: 1}
-  MP_FollowBrushTransform: 0
-  MP_ObjectForFollowing: {fileID: 0}
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 0, g: 0, b: 0, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 0, g: 1, b: 1, a: 1}
+  MP_FollowBrushTransform: 1
+  MP_ObjectForFollowing: {fileID: 1390164507}
   MP_HideCustomBrushIfNotRaycasting: 1
   MP_RefreshMeshCollider: 1
   MeshPaintMode: 0
@@ -678,11 +685,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1647caf4372733347b863583a3dad5a3, type: 3}
---- !u!4 &1072893618 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5690854930166305800, guid: 44c96ca220dfa1c40b255ee4652402bf, type: 3}
-  m_PrefabInstance: {fileID: 1387627622}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1387627622
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -772,7 +774,7 @@ SphereCollider:
   m_GameObject: {fileID: 1390164503}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
