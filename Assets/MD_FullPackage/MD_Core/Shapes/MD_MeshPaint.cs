@@ -244,7 +244,12 @@ namespace MD_Plugin
             if (MP_FollowBrushTransform)
             {
                 if (!MP_ObjectForFollowing)
+                {
+                    //temp Vova
+                    MP_ObjectForFollowing = GameObject.Find( "Brush" ).transform;
+                    //end
                     return;
+                }
                 else
                 {
                     MP_ObjectForFollowing.position = internal_BrushRoot.position;

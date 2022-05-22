@@ -691,7 +691,7 @@ using ExitGames.Client.Photon;
             Meshf.mesh.RecalculateBounds();
 
             //Vova start
-             SpawnPlayer( Meshf.gameObject );
+            // SpawnPlayer( Meshf.gameObject );
             
             //Multiplayer here
             //Vova end
