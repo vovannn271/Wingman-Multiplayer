@@ -90,7 +90,9 @@ using ExitGames.Client.Photon;
         public bool MP_HideCustomBrushIfNotRaycasting = true;
 
         public bool MP_RefreshMeshCollider = true;
-
+        
+    
+        private PhotonView brushPhotonView;
         private void Awake()
         {
             if (!internal_BrushHelper)
@@ -174,7 +176,11 @@ using ExitGames.Client.Photon;
                 if (internal_p8)
                     Destroy( internal_p8.gameObject );
             }
-        }
+
+        brushPhotonView = gameObject.GetComponent<PhotonView>();
+
+
+    }
 
         private void Start()
         {
@@ -187,15 +193,26 @@ using ExitGames.Client.Photon;
                 MD_Debug.Debug( this, "Main Camera is null. Please choose one camera and change its tag to MainCamera.", MD_Debug.DebugType.Error );
             else if (MP_MeshPaintType == MP_MeshPaintTypeInternal.DrawOnScreen && !MP_TypeScreen_UseMainCamera && MP_TypeScreen_TargetCamera == null)
                 MD_Debug.Debug( this, "Target camera is null.", MD_Debug.DebugType.Error );
-        }
 
-        GameObject internal_currentlyTargetMesh;
+
+        /*Vova*/
+        PhotonView photonView = this.gameObject.GetComponent<PhotonView>();
+        /**/
+    }
+
+    GameObject internal_currentlyTargetMesh;
         Vector3 internal_ppplastposition;
         Vector3 internal_ppplastpress;
         Quaternion internal_ppplastrotation;
         private void Update()
         {
-            switch (MP_MeshPaintType)
+        if (brushPhotonView.IsMine == false 
+            && PhotonNetwork.IsConnected == true)
+        {
+            return;
+        }
+
+        switch (MP_MeshPaintType)
             {
                 case MP_MeshPaintTypeInternal.DrawOnRaycastHit:
                 INTERNAL_UPDATE_DrawOnRaycast();

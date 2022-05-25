@@ -83,7 +83,7 @@ namespace Photon.Pun
             {
                 if (this.m_SynchronizePosition)
                 {
-                    Debug.Log( "writing pos" + tr.localPosition );
+                    //Debug.Log( "writing pos" + tr.localPosition );
                     if (m_UseLocal)
                     {
                         this.m_Direction = tr.localPosition - this.m_StoredPosition;
@@ -124,7 +124,7 @@ namespace Photon.Pun
                 {
                     this.m_NetworkPosition = (Vector3)stream.ReceiveNext();
                     this.m_Direction = (Vector3)stream.ReceiveNext();
-                    Debug.Log( "reading pos" + m_NetworkPosition );
+                    //Debug.Log( "reading pos" + m_NetworkPosition );
 
                     if (m_firstTake)
                     {

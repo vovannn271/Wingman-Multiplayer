@@ -247,7 +247,7 @@ namespace Opsive.UltimateCharacterController.UI
         /// <returns>True if the UI can be shown.</returns>
         protected override bool CanShowUI()
         {
-            return base.CanShowUI() && m_EquippedItem != null && m_ItemIcon.sprite != null;
+            return base.CanShowUI() && m_EquippedItem != null;// && m_ItemIcon.sprite != null;
         }
 
         /// <summary>
