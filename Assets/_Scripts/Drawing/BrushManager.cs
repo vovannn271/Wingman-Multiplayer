@@ -40,7 +40,7 @@ public class BrushManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
+       /* if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
         {
             return;
         }
@@ -49,6 +49,6 @@ public class BrushManager : MonoBehaviour
         if( Physics.Raycast( ray, out RaycastHit raycastHit, float.MaxValue, layerMask ))
         {
             transform.position = raycastHit.point;
-        }
+        }*/
     }
 }
