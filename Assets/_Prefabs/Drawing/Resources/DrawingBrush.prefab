@@ -227,9 +227,6 @@ MonoBehaviour:
   MP_RotationMode: 1
   MP_RotationmodeOffset: {x: 0, y: 0, z: -1}
   MP_ShapeType: 2
-  MP_TypeScreen_UseMainCamera: 1
-  MP_TypeScreen_TargetCamera: {fileID: 0}
-  MP_TypeScreen_Depth: 10
   MP_TypeRaycast_RaycastFromCursor: 1
   MP_TypeRaycast_RaycastOriginFORWARD: {fileID: 0}
   MP_TypeRaycast_AllowedLayers:

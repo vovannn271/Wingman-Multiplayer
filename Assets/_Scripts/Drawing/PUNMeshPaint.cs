@@ -8,7 +8,7 @@ using Photon.Pun;
 /// Full system for advanced mesh painting
 /// </summary>
 [AddComponentMenu( MD_Debug.ORGANISATION + MD_Debug.PACKAGENAME + "Mesh Paint" )]
-    public class PUNMeshPaint : MonoBehaviour
+    public class PUNMeshPaint : MonoBehaviour, IPunObservable
     {
         //MESH DATA
         [SerializeField] private List<Vector3> internal_vertices = new List<Vector3>();
@@ -60,10 +60,7 @@ using Photon.Pun;
         public enum MP_ShapeTypeInternal { Plane, Triangle, Cube };
         public MP_ShapeTypeInternal MP_ShapeType;
 
-        //---Type - screen
-        public bool MP_TypeScreen_UseMainCamera = true;
-        public Camera MP_TypeScreen_TargetCamera;
-        public float MP_TypeScreen_Depth = 10;
+
         //---Type - raycast
         public bool MP_TypeRaycast_RaycastFromCursor = true;
         public Transform MP_TypeRaycast_RaycastOriginFORWARD;
@@ -106,22 +103,7 @@ using Photon.Pun;
             Vector3 vp1 = Vector3.zero, vp2 = Vector3.zero, vp3 = Vector3.zero, vp4 = Vector3.zero,
                 vp5 = Vector3.zero, vp6 = Vector3.zero, vp7 = Vector3.zero, vp8 = Vector3.zero;
 
-            switch (MP_ShapeType)
-            {
-                case MP_ShapeTypeInternal.Plane:
-                vp1 = new Vector3( 0.5f, 0, 0 );
-                vp2 = new Vector3( -0.5f, 0, 0 );
-                vp3 = new Vector3( -0.5f, 0, 0.5f );
-                vp4 = new Vector3( 0.5f, 0, 0.5f );
-                break;
 
-                case MP_ShapeTypeInternal.Triangle:
-                vp1 = new Vector3( 0.5f, -0.5f, 0 );
-                vp2 = new Vector3( -0.5f, -0.5f, 0 );
-                vp3 = new Vector3( 0, 0.5f, 0 );
-                break;
-
-                case MP_ShapeTypeInternal.Cube:
                 vp1 = new Vector3( -0.5f, -0.5f, -0.5f );
                 vp2 = new Vector3( -0.5f, 0.5f, -0.5f );
                 vp3 = new Vector3( 0.5f, 0.5f, -0.5f );
@@ -131,8 +113,8 @@ using Photon.Pun;
                 vp6 = new Vector3( -0.5f, 0.5f, 0.5f );
                 vp7 = new Vector3( 0.5f, 0.5f, 0.5f );
                 vp8 = new Vector3( 0.5f, -0.5f, 0.5f );
-                break;
-            }
+
+            
 
             if (!internal_p1)
                 internal_p1 = new GameObject( "MD_MESHPAINT_P1" ).transform;
@@ -147,15 +129,7 @@ using Photon.Pun;
             internal_p3.parent = internal_BrushRoot;
             internal_p3.localPosition = vp3;
 
-            if (MP_ShapeType == MP_ShapeTypeInternal.Plane)
-            {
-                if (!internal_p4)
-                    internal_p4 = new GameObject( "MD_MESHPAINT_P4" ).transform;
-                internal_p4.parent = internal_BrushRoot;
-                internal_p4.localPosition = vp4;
-            }
-            else if (MP_ShapeType == MP_ShapeTypeInternal.Cube)
-            {
+
                 if (!internal_p4)
                     internal_p4 = new GameObject( "MD_MESHPAINT_P4" ).transform;
                 internal_p4.parent = internal_BrushRoot;
@@ -176,20 +150,6 @@ using Photon.Pun;
                     internal_p8 = new GameObject( "MD_MESHPAINT_P8" ).transform;
                 internal_p8.parent = internal_BrushRoot;
                 internal_p8.localPosition = vp8;
-            }
-            else
-            {
-                if (internal_p4)
-                    Destroy( internal_p4.gameObject );
-                if (internal_p5)
-                    Destroy( internal_p5.gameObject );
-                if (internal_p6)
-                    Destroy( internal_p6.gameObject );
-                if (internal_p7)
-                    Destroy( internal_p7.gameObject );
-                if (internal_p8)
-                    Destroy( internal_p8.gameObject );
-            }
 
         }
 
@@ -200,10 +160,6 @@ using Photon.Pun;
             else if (!MP_MaterialSlots && MP_Color_AvailableColors.Length == 0)
                 MD_Debug.Debug( this, "At least one color must be added", MD_Debug.DebugType.Error );
 
-            if (MP_MeshPaintType == MP_MeshPaintTypeInternal.DrawOnScreen && MP_TypeScreen_UseMainCamera && Camera.main == null)
-                MD_Debug.Debug( this, "Main Camera is null. Please choose one camera and change its tag to MainCamera.", MD_Debug.DebugType.Error );
-            else if (MP_MeshPaintType == MP_MeshPaintTypeInternal.DrawOnScreen && !MP_TypeScreen_UseMainCamera && MP_TypeScreen_TargetCamera == null)
-                MD_Debug.Debug( this, "Target camera is null.", MD_Debug.DebugType.Error );
         }
 
         GameObject internal_currentlyTargetMesh;
@@ -213,14 +169,15 @@ using Photon.Pun;
         private void Update()
         {
 
-        if (!_photonView.IsMine)
+       /* if (!_photonView.IsMine)
         {
             return;
         }
-
-
-        INTERNAL_UPDATE_DrawOnRaycast();
+       */
+            INTERNAL_UPDATE_DrawOnRaycast();
               
+
+
 
             if (MP_TypeCustom_DRAW)
             {
@@ -237,13 +194,6 @@ using Photon.Pun;
 
             internal_ppplastposition = internal_BrushHelper.transform.position;
 
-            if (MP_MeshPaintType == MP_MeshPaintTypeInternal.CustomDraw)
-            {
-                if (MP_TypeCustom_CustomBrushTransform && MP_TypeCustom_BrushParent)
-                    internal_BrushHelper.position = MP_TypeCustom_BrushParent.position;
-                else
-                    internal_BrushHelper.position = transform.position;
-            }
 
             if (MP_FollowBrushTransform)
             {
@@ -260,61 +210,23 @@ using Photon.Pun;
             }
         }
 
-        #region INTERNAL FUNCTIONS
+    #region INTERNAL FUNCTIONS
 
-        //---TYPE _ SCREEN
-        private void INTERNAL_UPDATE_DrawOnScreen()
-        {
-            Vector3 location = INTERNAL_GetScreenPosition();
-            Vector3 rotationdirection = internal_BrushHelper.InverseTransformDirection( location - internal_ppplastposition );
-            if (rotationdirection != Vector3.zero)
-            {
-                if (MP_RotationMode == MP_RotationModeInternal.FollowOneAxis)
-                    internal_ppplastrotation = Quaternion.LookRotation( rotationdirection, MP_RotationmodeOffset );
-                else
-                    internal_ppplastrotation = Quaternion.LookRotation( rotationdirection );
-            }
 
-            internal_BrushHelper.position = location;
 
-            if (MP_SmoothBrushMovement)
-                internal_BrushRoot.position = Vector3.Lerp( internal_BrushRoot.position, internal_BrushHelper.position, Time.deltaTime * MP_BSmoothMSpeed );
-            else
-                internal_BrushRoot.position = internal_BrushHelper.position;
 
-            if (MP_SmoothBrushRotation)
-                internal_BrushRoot.rotation = Quaternion.Lerp( internal_BrushRoot.rotation, internal_ppplastrotation, Time.deltaTime * MP_BSmoothRSpeed );
-            else
-                internal_BrushRoot.rotation = internal_ppplastrotation;
-
-            if (!MP_TypeCustom_DRAW)
-            {
-                if (INTERNAL_GetInput( false ))
-                    MP_TypeCustom_DRAW = true;
-            }
-            else
-            {
-                if (INTERNAL_GetInput( true ))
-                    MP_TypeCustom_DRAW = false;
-            }
-        }
-        private Vector3 INTERNAL_GetScreenPosition()
-        {
-            Vector3 p = Input.mousePosition;
-            p.z = MP_TypeScreen_Depth;
-            if (MP_TypeScreen_UseMainCamera)
-                MP_TypeScreen_TargetCamera = Camera.main;
-
-            p = MP_TypeScreen_TargetCamera.ScreenToWorldPoint( p );
-            return p;
-        }
-
-        //---TYPE _ RAYCAST
+    //Vova made it outside
+         Vector3 location;
+     
+    //---TYPE _ RAYCAST
         private void INTERNAL_UPDATE_DrawOnRaycast()
         {
 
-            Vector3 location = INTERNAL_GetRaycastPosition();
+        if (_photonView.IsMine)
+        {
+            location = INTERNAL_GetRaycastPosition();
             location += MP_TypeRaycast_BrushOffset;
+        }
 
             Vector3 rotationdirection = internal_BrushHelper.InverseTransformDirection( location - internal_ppplastposition );
 
@@ -341,6 +253,12 @@ using Photon.Pun;
             if (location == Vector3.zero)
                 return;
 
+
+
+
+
+        if (_photonView.IsMine)
+        {
             if (!MP_TypeCustom_DRAW)
             {
                 if (INTERNAL_GetInput())
@@ -351,15 +269,15 @@ using Photon.Pun;
                 if (INTERNAL_GetInput( true ))
                     MP_TypeCustom_DRAW = false;
             }
+        }
+            
 
         }
         private Vector3 INTERNAL_GetRaycastPosition()
         {
-            Camera c = null;
-            if (MP_TypeScreen_UseMainCamera)
-                c = Camera.main;
-            else
-                c = MP_TypeScreen_TargetCamera;
+            Camera c;
+            c = Camera.main;
+
 
             Vector3 result = Vector3.zero;
             Ray r = new Ray();
@@ -404,55 +322,15 @@ using Photon.Pun;
             return Vector3.zero;
         }
 
-        //---TYPE _ CUSTOM
-        private void INTERNAL_UPDATE_DrawOnCustom()
-        {
-            if (!MP_TypeCustom_CustomBrushTransform)
-                return;
-
-            Vector3 rotationdirection = internal_BrushHelper.InverseTransformDirection( ( MP_TypeCustom_BrushParent == null ? transform.position : MP_TypeCustom_BrushParent.position ) - internal_ppplastposition );
-            if (rotationdirection != Vector3.zero && MP_TypeCustom_EnableSmartRotation)
-            {
-                if (MP_RotationMode == MP_RotationModeInternal.FollowOneAxis)
-                    internal_ppplastrotation = Quaternion.FromToRotation( Vector3.forward, rotationdirection );
-                else
-                    internal_ppplastrotation = Quaternion.LookRotation( rotationdirection );
-            }
-
-            if (MP_SmoothBrushMovement)
-                internal_BrushRoot.position = Vector3.Lerp( internal_BrushRoot.position, internal_BrushHelper.position, Time.deltaTime * MP_BSmoothMSpeed );
-            else
-                internal_BrushRoot.position = internal_BrushHelper.position;
-
-            if (MP_SmoothBrushRotation)
-                internal_BrushRoot.rotation = Quaternion.Lerp( internal_BrushRoot.rotation, internal_ppplastrotation, Time.deltaTime * MP_BSmoothRSpeed );
-            else
-                internal_BrushRoot.rotation = internal_ppplastrotation;
-        }
-
-
+       
         //-Input and others
         private bool INTERNAL_GetInput( bool Up = false )
         {
-            switch (MP_Platform)
-            {
-                case MP_PlatformInternal.PC:
+
                 if (!Up)
                     return Input.GetKeyDown( MP_INPUT_PC_MeshPaintInput );
                 else
                     return Input.GetKeyUp( MP_INPUT_PC_MeshPaintInput );
-
-                case MP_PlatformInternal.Mobile:
-                if (!Up && Input.touchCount > 0)
-                    return true;
-                else if (Up && Input.touchCount == 0)
-                    return true;
-                else
-                    return false;
-
-                default:
-                return false;
-            }
         }
 
         private void INTERNAL_ChangeBrushSize( float size )
@@ -484,185 +362,8 @@ using Photon.Pun;
             }
         }
 
-        private void INTERNAL_Generation_Triangle( Vector3 Position, MeshPaintModeInternal MeshPaintMode )
-        {
-            Vector3[] newVertArray = new Vector3[] { internal_p1.position, internal_p2.position, internal_p3.position };
-
-            if (MeshPaintMode == MeshPaintModeInternal.EndPaint)
-                newVertArray = new Vector3[] { internal_vertices[internal_vertices.Count - 3], internal_vertices[internal_vertices.Count - 2], internal_vertices[internal_vertices.Count - 1] };
-
-            int last = 0;
-            if (internal_triangles.Count > 0)
-                last = internal_vertices.Count - 1;
-            int[] newTrinArray = new int[] { };
-
-            if (MeshPaintMode == MeshPaintModeInternal.StartPaint)
-            {
-                internal_ppplastpress = Position;
-                PUBLIC_CreateNewPaintPattern( "Paint_TargetMesh", MP_RefreshMeshCollider );
-
-                internal_vertices.Clear();
-                internal_triangles.Clear();
-                internal_uvs.Clear();
-
-                newTrinArray = new int[]
-                 {
-                0,1,2
-                 };
-
-                MP_TypeCustom_DRAWStart = true;
-            }
-            else if (MeshPaintMode == MeshPaintModeInternal.Painting)
-            {
-                internal_ppplastpress = Position;
-                newTrinArray = new int[]
-                {
-                    //----Left-Down
-                    last-1,last+2, last+3,
-                     //----Left-Up
-                    last+3,last, last-1,
-
-                     //----Right-Down
-                    last+1,last-2, last,
-                     //----Right-Up
-                    last, last+3, last+1,
-
-                    //----Down-Right-Down
-                    last+1,last+2, last-1,
-                     //----Down-Left-Down
-                    last-1, last-2, last+1,
-                };
-            }
-            else if (MeshPaintMode == MeshPaintModeInternal.EndPaint)
-            {
-                if (!MP_ConnectMeshOnRelease)
-                {
-                    newTrinArray = new int[]
-                    {
-                    //----New Front Side
-                    last+3, last+2, last+1,
-                    };
-                }
-                else
-                {
-                    newTrinArray = new int[]
-                    {
-                        //----Left-Down
-                        last-1, 1, 2,
-                         //----Left-Up
-                        last-1, 2, last,
-
-                         //----Right-Down
-                        0, last-2, last,
-                         //----Right-Up
-                        0, last, 2,
-
-                        //----Down-Right-Down
-                        0, 1, last-1,
-                         //----Down-Left-Down
-                        0, last-1, last-2,
-                    };
-                }
-
-                MP_TypeCustom_DRAWStart = false;
-
-                if (MP_TypeRaycast_IgnoreSelfCasting)
-                    internal_currentlyTargetMesh.layer = 2;
-                else
-                    internal_currentlyTargetMesh.layer = 0;
-            }
-
-            if (newVertArray != null)
-                internal_vertices.AddRange( newVertArray );
-
-            internal_triangles.AddRange( newTrinArray );
-            internal_uvs.AddRange( new List<Vector2> { new Vector2( 0.5f, -0.5f ), new Vector2( -0.5f, -0.5f ), new Vector2( 0, 0.5f ) } );
-        }
-
+      
         int UVFixer;
-        private void INTERNAL_Generation_Plane( Vector3 Position, MeshPaintModeInternal MeshPaintMode )
-        {
-            Vector3[] newVertArray = null;
-            if (MeshPaintMode == MeshPaintModeInternal.StartPaint)
-                newVertArray = new Vector3[] { internal_p1.position, internal_p2.position, internal_p3.position, internal_p4.position };
-            else if (MeshPaintMode == MeshPaintModeInternal.Painting)
-                newVertArray = new Vector3[] { internal_p3.position, internal_p4.position };
-
-            int last = 0;
-            if (internal_triangles.Count > 0)
-                last = internal_vertices.Count - 1;
-            int[] newTrinArray = new int[] { };
-
-            if (MeshPaintMode == MeshPaintModeInternal.StartPaint)
-            {
-                UVFixer = 0;
-                internal_ppplastpress = Position;
-                PUBLIC_CreateNewPaintPattern( "Paint_TargetMesh", MP_RefreshMeshCollider );
-
-                internal_vertices.Clear();
-                internal_triangles.Clear();
-                internal_uvs.Clear();
-
-                newTrinArray = new int[]
-                 {
-                    0,1,2,
-                    0,2,3
-                 };
-
-                MP_TypeCustom_DRAWStart = true;
-            }
-            else if (MeshPaintMode == MeshPaintModeInternal.Painting)
-            {
-                if (UVFixer == 0)
-                    UVFixer = 1;
-                else
-                    UVFixer = 0;
-                internal_ppplastpress = Position;
-                newTrinArray = new int[]
-                {
-                    //----Right
-                    last, last-1, last+2,
-                     //----Left
-                    last-1,last+1, last+2,
-
-                };
-            }
-            else if (MeshPaintMode == MeshPaintModeInternal.EndPaint)
-            {
-                if (MP_ConnectMeshOnRelease)
-                {
-                    newTrinArray = new int[]
-                    {
-                        //----Right
-                        last, last-1, 1,
-                         //----Left
-                        last,1, 0,
-                     };
-                }
-
-                MP_TypeCustom_DRAWStart = false;
-
-                if (MP_TypeRaycast_IgnoreSelfCasting)
-                    internal_currentlyTargetMesh.layer = 2;
-                else
-                    internal_currentlyTargetMesh.layer = 0;
-            }
-
-            if (newVertArray != null)
-                internal_vertices.AddRange( newVertArray );
-
-            internal_triangles.AddRange( newTrinArray );
-            if (MeshPaintMode == MeshPaintModeInternal.StartPaint)
-                internal_uvs.AddRange( new List<Vector2> { new Vector2( 0, 0 ), new Vector2( 1, 0 ), new Vector2( 1, 1 ), new Vector2( 0, 1 ) } );
-            else if (MeshPaintMode == MeshPaintModeInternal.Painting)
-            {
-                if (UVFixer == 0)
-                    internal_uvs.AddRange( new List<Vector2> { new Vector2( 0, 0 ), new Vector2( 1, 0 ) } );
-                else
-                    internal_uvs.AddRange( new List<Vector2> { new Vector2( 0, 1 ), new Vector2( 1, 1 ) } );
-            }
-        }
-
         private void INTERNAL_Generation_Cube( Vector3 Position, MeshPaintModeInternal MeshPaintMode )
         {
             Vector3[] newVertArray = null;
@@ -838,23 +539,23 @@ using Photon.Pun;
         /// </summary>
         public void PUBLIC_PaintMesh( Vector3 Position, MeshPaintModeInternal MeshPaintMode )
         {
+        /* Vova comment
             if (MP_DistanceLimitation)
             {
                 if (Vector3.Distance( Position, internal_ppplastpress ) < MP_MinDistanceLimit)
                     return;
-            }
+            }*/
 
             if (UnityEngine.EventSystems.EventSystem.current && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
-                return;
+            {
+              Debug.Log( "UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() == false" );
+               return;
+            }
 
             INTERNAL_ChangeBrushSize( MP_BrushSize );
 
-            if (MP_ShapeType == MP_ShapeTypeInternal.Triangle)
-                INTERNAL_Generation_Triangle( Position, MeshPaintMode );
-            else if (MP_ShapeType == MP_ShapeTypeInternal.Plane)
-                INTERNAL_Generation_Plane( Position, MeshPaintMode );
-            else if (MP_ShapeType == MP_ShapeTypeInternal.Cube)
-                INTERNAL_Generation_Cube( Position, MeshPaintMode );
+           
+            INTERNAL_Generation_Cube( Position, MeshPaintMode );
 
             MeshFilter Meshf = internal_currentlyTargetMesh.GetComponent<MeshFilter>();
             Meshf.mesh.vertices = internal_vertices.ToArray();
@@ -935,8 +636,35 @@ using Photon.Pun;
         {
             MP_TypeCustom_DRAW = setInputTo;
         }
+    #endregion
 
-        #endregion
-
+    #region Networking
+    public void OnPhotonSerializeView( PhotonStream stream, PhotonMessageInfo info )
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext( location );
+            stream.SendNext( MP_TypeCustom_DRAW );
+        }
+        else
+        {
+            location = (Vector3)stream.ReceiveNext();
+            MP_TypeCustom_DRAW = (bool)stream.ReceiveNext();
+            Debug.Log( location + " " +  MP_TypeCustom_DRAW );
+        }
     }
+
+    private void OnEnable()
+    {
+        PhotonNetwork.AddCallbackTarget( this );
+    }
+    private void OnDisable()
+    {
+        PhotonNetwork.RemoveCallbackTarget( this );
+    }
+
+
+    #endregion
+
+}
 
