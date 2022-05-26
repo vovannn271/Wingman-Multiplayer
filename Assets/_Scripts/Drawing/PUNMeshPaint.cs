@@ -650,7 +650,7 @@ using Photon.Pun;
         {
             location = (Vector3)stream.ReceiveNext();
             MP_TypeCustom_DRAW = (bool)stream.ReceiveNext();
-            Debug.Log( location + " " +  MP_TypeCustom_DRAW );
+       //     Debug.Log( location + " " +  MP_TypeCustom_DRAW );
         }
     }
 

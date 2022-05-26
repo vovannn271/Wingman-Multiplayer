@@ -387,6 +387,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DrawingBrush
       objectReference: {fileID: 0}
+    - target: {fileID: 1636921528585751100, guid: 565b3604a8faadd419e8a583d5275c23, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6383999938955195672, guid: 565b3604a8faadd419e8a583d5275c23, type: 3}
       propertyPath: m_RootOrder
       value: 6

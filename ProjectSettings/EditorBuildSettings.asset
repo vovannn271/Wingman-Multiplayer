@@ -5,19 +5,19 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Scenes/Menu 1.unity
     guid: 2fafd080de83cdf4eaf83314bdcc8907
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Scenes/SampleScenePUN.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 0
     path: Assets/Opsive/UltimateCharacterController/Add-Ons/Multiplayer/PhotonPUN/Demo/DemoRoom.unity
     guid: d78f1d0e7b146de46ba3461df34164c9
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/DrawingScenes/MenuPUNDrawing.unity
     guid: f97859dbb4b8c5848b5dd67dd7f190d0
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/DrawingScenes/PUNDrawing.unity
     guid: 9937eb49865c24149bbcb119f0c86077
   m_configObjects: {}

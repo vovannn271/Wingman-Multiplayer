@@ -16,7 +16,6 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
     {
         [Tooltip("A reference to the character that PUN should spawn. This character must be setup using the PUN Multiplayer Manager.")]
         [SerializeField] protected GameObject m_Character;
-
         public GameObject Character { get { return m_Character; } set { m_Character = value; } }
         
         /// <summary>
@@ -29,5 +28,7 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
             // Return the same character for all instances.
             return m_Character;
         }
+
+
     }
 }

@@ -96,7 +96,7 @@ SphereCollider:
   m_GameObject: {fileID: 1636921528585751100}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -185,6 +185,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 355347425}
+  - {fileID: 7314980952492392389}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -214,8 +215,8 @@ MonoBehaviour:
   internal_BrushHelper: {fileID: 0}
   internal_BrushRoot: {fileID: 0}
   MP_Platform: 0
-  MP_INPUT_PC_MeshPaintInput: 323
-  MP_BrushSize: 0.5
+  MP_INPUT_PC_MeshPaintInput: 324
+  MP_BrushSize: 0.35
   MP_SmoothBrushMovement: 1
   MP_BSmoothMSpeed: 10
   MP_SmoothBrushRotation: 1
@@ -235,12 +236,12 @@ MonoBehaviour:
   MP_TypeRaycast_CastAllObjects: 1
   MP_TypeRaycast_TagForRaycast: 
   MP_TypeRaycast_BrushOffset: {x: 0, y: 0.2, z: 0}
-  MP_TypeRaycast_IgnoreSelfCasting: 1
+  MP_TypeRaycast_IgnoreSelfCasting: 0
   MP_TypeCustom_DRAW: 0
   MP_TypeCustom_CustomBrushTransform: 1
   MP_TypeCustom_EnableSmartRotation: 1
   MP_TypeCustom_BrushParent: {fileID: 0}
-  MP_CurrentlySelectedAppearanceSlot: 0
+  MP_CurrentlySelectedAppearanceSlot: 3
   MP_MaterialSlots: 0
   MP_Color_AvailableMaterials: []
   MP_Color_AvailableColors:

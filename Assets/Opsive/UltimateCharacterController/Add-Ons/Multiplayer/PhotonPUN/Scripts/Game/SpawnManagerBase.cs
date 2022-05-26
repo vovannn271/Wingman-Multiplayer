@@ -4,6 +4,9 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
 {
     using ExitGames.Client.Photon;
@@ -13,7 +16,6 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
     using Photon.Pun;
     using Photon.Realtime;
     using System.Collections.Generic;
-    using UnityEngine;
 
     /// <summary>
     /// Manages the character instantiation within a PUN room.
@@ -37,6 +39,9 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
         [SerializeField] protected int m_SpawnPointGrouping = -1;
         [Tooltip("The amount of time it takes until an inactive player is removed from the room.")]
         [SerializeField] protected float m_InactiveTimeout = 60;
+
+        [SerializeField] protected GameObject brushPrefab;
+
 
         public SpawnMode Mode { get { return m_Mode; } set { m_Mode = value; } }
         public Transform SpawnLocation { get { return m_SpawnLocation; } set { m_SpawnLocation = value; } }
@@ -92,7 +97,13 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
             m_RaiseEventOptions.CachingOption = EventCaching.DoNotCache;
             m_RaiseEventOptions.Receivers = ReceiverGroup.Others;
 
-            SpawnPlayer(PhotonNetwork.LocalPlayer);
+            SpawnPlayer( PhotonNetwork.LocalPlayer );
+
+           
+           
+           PhotonNetwork.Instantiate( brushPrefab.name, new Vector3( 0f, 5f, 0f ), Quaternion.identity, 0 );
+            
+
         }
 
         /// <summary>
@@ -278,12 +289,15 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
 
                     var player = PhotonNetwork.CurrentRoom.GetPlayer((int)data[i * 4 + 3]);
                     var character = Instantiate(GetCharacterPrefab(player), (Vector3)data[i * 4], (Quaternion)data[i * 4 + 1]);
+
                     var photonView = character.GetCachedComponent<PhotonView>();
                     photonView.ViewID = viewID;
                     // As of PUN 2.19, when the ViewID is set the Owner is not set. Set the owner to null and then to the player so the owner will correctly be assigned.
                     photonView.TransferOwnership(null);
                     photonView.TransferOwnership(player);
                     AddPhotonView(photonView);
+
+
 
                     // If the instantiated character is a local player then the Master Client is waiting for it to be created on the client. Notify the Master Client
                     // that the character has been created so it can be activated.
