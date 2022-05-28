@@ -2554,7 +2554,7 @@ MonoBehaviour:
   - ItemDefinition: {fileID: 114334400771614146, guid: 5481010ef14c32f4cb7b6661b0c59fb4, type: 2}
     Amount: 1
   - ItemDefinition: {fileID: 114399628520483710, guid: 5481010ef14c32f4cb7b6661b0c59fb4, type: 2}
-    Amount: 100
+    Amount: 300
 --- !u!114 &5328205816409869042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2969,7 +2969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc48a08479fef144ba3c94e04faef56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RemoteInterpolationMultiplayer: 1.2
+  m_RemoteInterpolationMultiplayer: 2
 --- !u!114 &554786894788265242
 MonoBehaviour:
   m_ObjectHideFlags: 0

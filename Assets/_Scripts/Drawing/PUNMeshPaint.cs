@@ -529,7 +529,7 @@ using Photon.Pun;
             if (addCollider)
             {
                 Entry.AddComponent<MeshCollider>();
-                Entry.layer = 2;
+                Entry.layer = 0;//collision with player on start painting
             }
             internal_currentlyTargetMesh = Entry;
         }
