@@ -78,6 +78,11 @@ MonoBehaviour:
   - ThrowItemRPC
   - ToggleFlashlightRPC
   - UpdateAttributeRPC
+  - StartMessage
+  - StoptMessage
+  - StopMessage
+  - AddTargetMeshToManager
+  - ChatMessage
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -145,6 +145,7 @@ namespace Opsive.UltimateCharacterController.Traits
         {
             base.Awake();
 
+          //  m_DestroyedObjectsOnDeath =  new GameObject[] { this.gameObject };
             m_GameObject = gameObject;
             m_Transform = transform;
             m_ForceObject = m_GameObject.GetCachedComponent<IForceObject>();

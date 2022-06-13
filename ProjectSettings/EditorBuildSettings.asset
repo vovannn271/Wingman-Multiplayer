@@ -12,12 +12,15 @@ EditorBuildSettings:
     path: Assets/_Scenes/SampleScenePUN.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 0
-    path: Assets/Opsive/UltimateCharacterController/Add-Ons/Multiplayer/PhotonPUN/Demo/DemoRoom.unity
-    guid: d78f1d0e7b146de46ba3461df34164c9
-  - enabled: 0
     path: Assets/_Scenes/DrawingScenes/MenuPUNDrawing.unity
     guid: f97859dbb4b8c5848b5dd67dd7f190d0
   - enabled: 0
     path: Assets/_Scenes/DrawingScenes/PUNDrawing.unity
     guid: 9937eb49865c24149bbcb119f0c86077
+  - enabled: 0
+    path: Assets/Opsive/UltimateCharacterController/Add-Ons/Multiplayer/PhotonPUN/Demo/Menu.unity
+    guid: 1382d57a08a6d1546aec02771ce2a1fb
+  - enabled: 0
+    path: Assets/Opsive/UltimateCharacterController/Add-Ons/Multiplayer/PhotonPUN/Demo/DemoRoom.unity
+    guid: d78f1d0e7b146de46ba3461df34164c9
   m_configObjects: {}

@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 3700649395051750568}
   - component: {fileID: 355347430}
   - component: {fileID: 355347425}
-  - component: {fileID: 355347431}
   - component: {fileID: 355347432}
   - component: {fileID: 7314980952492392389}
   m_Layer: 0
@@ -149,22 +148,6 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
---- !u!114 &355347431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1636921528585751100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 597cafdba9e56644badd75db8c56b90f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!114 &355347432
 MonoBehaviour:
   m_ObjectHideFlags: 0

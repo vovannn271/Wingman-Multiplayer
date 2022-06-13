@@ -49,7 +49,7 @@ public class MultiplayerSpawn : MonoBehaviour, IOnEventCallback
             {
                 object[] data = new object[]
                 {
-            player.transform.position, player.transform.rotation, photonView.ViewID
+                    player.transform.position, player.transform.rotation, photonView.ViewID
                 };
 
                 RaiseEventOptions raiseEventOptions = new RaiseEventOptions {
@@ -62,7 +62,7 @@ public class MultiplayerSpawn : MonoBehaviour, IOnEventCallback
                 };
 
                 PhotonNetwork.RaiseEvent( CustomManualInstantiationEventCode, data, raiseEventOptions, sendOptions );
-            Debug.Log( "Event raised " + CustomManualInstantiationEventCode );    
+                Debug.Log( "Event raised " + CustomManualInstantiationEventCode );    
         }
             else
             {
