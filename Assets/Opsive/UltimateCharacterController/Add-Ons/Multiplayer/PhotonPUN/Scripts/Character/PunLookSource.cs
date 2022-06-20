@@ -152,6 +152,7 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Charac
                 return;
             }
 
+
             var serializationRate = (1f / PhotonNetwork.SerializationRate) * m_RemoteInterpolationMultiplayer;
             m_NetworkLookDirectionDistance = Mathf.MoveTowards(m_NetworkLookDirectionDistance, m_NetworkTargetLookDirectionDistance, 
                                                            Mathf.Abs(m_NetworkTargetLookDirectionDistance - m_NetworkLookDirectionDistance) * serializationRate);
@@ -183,7 +184,7 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Charac
                     dirtyFlag |= (byte)TransformDirtyFlags.LookPosition;
                     m_NetworkLookPosition = lookPosition;
                 }
-                var lookDirection = m_LookSource.LookDirection(false);
+                var lookDirection = m_LookSource.LookDirection(this.transform.position,true, 0, true, true);//VOva changed here
                 if (m_NetworkLookDirection != lookDirection) {
                     dirtyFlag |= (byte)TransformDirtyFlags.LookDirection;
                     m_NetworkLookDirection = lookDirection;

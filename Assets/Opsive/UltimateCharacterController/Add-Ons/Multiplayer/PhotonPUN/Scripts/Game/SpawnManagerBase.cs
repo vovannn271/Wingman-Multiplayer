@@ -41,6 +41,8 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
         [SerializeField] protected float m_InactiveTimeout = 60;
 
         [SerializeField] protected GameObject brushPrefab;
+        [SerializeField] private GameObject brushGO;
+        
 
 
         public SpawnMode Mode { get { return m_Mode; } set { m_Mode = value; } }
@@ -101,10 +103,12 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
 
            
            
-           PhotonNetwork.Instantiate( brushPrefab.name, new Vector3( 0f, 5f, 0f ), Quaternion.identity, 0 );
+          brushGO = PhotonNetwork.Instantiate( brushPrefab.name, new Vector3( 0f, 5f, 0f ), Quaternion.identity, 0 );
             
 
         }
+
+
 
         /// <summary>
         /// Spawns the character within the room. A manual spawn method is used to have complete control over the spawn location.
@@ -189,6 +193,10 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
                 Debug.LogError("Failed to allocate a ViewId.");
                 Destroy(player);
             }
+
+
+
+
         }
 
         /// <summary>
