@@ -5044,7 +5044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0ba2df5ce8678248b29c9493d93767b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InitializeOnEnable: 0
+  m_InitializeOnEnable: 1
   m_Mass: 1
   m_StartVelocityMultiplier: 1
   m_GravityMagnitude: 9.8
