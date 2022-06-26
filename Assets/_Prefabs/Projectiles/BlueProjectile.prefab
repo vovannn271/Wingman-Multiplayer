@@ -5061,7 +5061,7 @@ MonoBehaviour:
     m_Bits: 2348810339
   m_SurfaceImpact: {fileID: 0}
   m_ForceMultiplier: 40
-  m_CollisionMode: 0
+  m_CollisionMode: 1
   m_ReflectMultiplier: 1
   m_MaxCollisionCount: 10
   m_MaxPositionCount: 150
@@ -5070,7 +5070,7 @@ MonoBehaviour:
     m_AudioClips: []
   m_StickyLayers:
     serializedVersion: 2
-    m_Bits: 234881091
+    m_Bits: 268435403
   m_DestroyOnCollision: 1
   m_WaitForParticleStop: 0
   m_DestructionDelay: 0
