@@ -3814,7 +3814,7 @@ MonoBehaviour:
   m_BurstDelay: 0.25
   m_Spread: 0.01
   m_FireInLookSourceDirection: 1
-  m_Projectile: {fileID: 9208466646817785792, guid: eaf96356ebe719542a738bfd4e00c68b, type: 3}
+  m_Projectile: {fileID: 7207166533229560728, guid: bbbf481524b9f5b48863f0b83a789251, type: 3}
   m_ProjectileFireVelocityMagnitude: 100
   m_ProjectileVisibility: 0
   m_ProjectileStartLayer: 2
