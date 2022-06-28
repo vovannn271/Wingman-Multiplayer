@@ -1,11 +1,10 @@
 fileFormatVersion: 2
-guid: 6c1eefff1d3d6844f88ad19752c306e0
+guid: abd71dcb0056342b08cb3e8851fac00b
+labels:
+- effect
+- explosion
 MonoImporter:
-  externalObjects: {}
   serializedVersion: 2
   defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
