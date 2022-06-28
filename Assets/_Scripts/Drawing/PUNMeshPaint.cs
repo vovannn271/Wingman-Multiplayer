@@ -273,20 +273,7 @@ using Photon.Realtime;
                 {
                         MP_TypeCustom_DRAW = false;
 
-
-
-
-
-                    int viewIDToSend = MineDrawingMultiplayerSetUp();
-                    if ( viewIDToSend == -1)
-                    {
-                        Debug.Log( "Can't send view ID " );
-                        return;
-                    }
-
-                    RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
-                    PhotonNetwork.RaiseEvent( MultiplayerStoppedDrawingEvent, viewIDToSend, raiseEventOptions, ExitGames.Client.Photon.SendOptions.SendReliable );
-
+                        SetUpMineDrawing();
                 }
             }
             }
@@ -294,26 +281,28 @@ using Photon.Realtime;
             
 
         }
+    private void SetUpMineDrawing()
+    {
 
-    [PunRPC]
-    void AddTargetMeshToManager()
-    {
-        Debug.Log( string.Format( "started drawing" ) );
-        currentTargetMeshID = _dm.TakeTargetMeshId();
+        //Multiplayer Part
+        int viewIDToSend = MineDrawingMultiplayerSetUp();
+        if (viewIDToSend == -1)
+        {
+            Debug.Log( "Can't send view ID " );
+            return;
+        }
+
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
+        PhotonNetwork.RaiseEvent( MultiplayerStoppedDrawingEvent, viewIDToSend, raiseEventOptions, ExitGames.Client.Photon.SendOptions.SendReliable );
     }
+
     
-    [PunRPC]
-    void StopMessage()
-    {
-        //internal_currentlyTargetMesh.gameObject.AddComponent<Opsive.UltimateCharacterController.Traits.Health>();
-        Debug.Log( string.Format( "stopped drawing" ) );
-    }
     public void OnEvent( ExitGames.Client.Photon.EventData photonEvent )
     {
         byte eventCode = photonEvent.Code;
         if (eventCode == MultiplayerStoppedDrawingEvent)
         {
-            AddPhotonViewToNonMineDrawing( (int)photonEvent.CustomData );
+            SetUpNonMineDrawing( (int)photonEvent.CustomData );
         }
 
     }
@@ -327,18 +316,19 @@ using Photon.Realtime;
         if ( internal_currentlyTargetMesh.GetComponent<PhotonView>() == null)
         {
             PhotonView curPV = internal_currentlyTargetMesh.AddComponent<PhotonView>();
+            MeshExploder me = internal_currentlyTargetMesh.AddComponent<MeshExploder>();
             
             
             if (PhotonNetwork.AllocateViewID( curPV ))
             {
-                Opsive.UltimateCharacterController.Traits.Health curHealth = internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.Traits.Health>();
-                internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Traits.PunHealthMonitor>();
+                HealthOfDrawing curHealth = internal_currentlyTargetMesh.AddComponent<HealthOfDrawing>();
                 internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Traits.PunAttributeMonitor>();
+                internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Traits.PunHealthMonitor>();
                 internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Objects.PunLocationMonitor>();//test
 
 
                 curHealth.DeactivateOnDeath = true;
-                
+                curHealth.MeshExploder = me;
 
                 return curPV.ViewID;
             }
@@ -348,7 +338,7 @@ using Photon.Realtime;
         return -1;
     }
 
-    private void AddPhotonViewToNonMineDrawing( int curViewId )
+    private void SetUpNonMineDrawing( int curViewId )
     {
         if (internal_currentlyTargetMesh == null)
             return;
@@ -358,13 +348,13 @@ using Photon.Realtime;
             PhotonView curPV = internal_currentlyTargetMesh.AddComponent<PhotonView>();
             curPV.ViewID = curViewId;
 
-            Opsive.UltimateCharacterController.Traits.Health curHealth = internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.Traits.Health>();
+            HealthOfDrawing curHealth = internal_currentlyTargetMesh.AddComponent<HealthOfDrawing>();
             internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Traits.PunHealthMonitor>();
-            internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Traits.PunAttributeMonitor>();
-            
+            internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Traits.PunAttributeMonitor>();            
             internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Objects.PunLocationMonitor>();//test
+            
             curHealth.DeactivateOnDeath = true;
-
+            curHealth.MeshExploder = internal_currentlyTargetMesh.AddComponent<MeshExploder>();
 
             Debug.Log( "added view id from outside" + curPV.ViewID );
         }
