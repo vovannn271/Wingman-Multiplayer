@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Opsive.UltimateCharacterController.Traits;
+
+[RequireComponent( typeof( MeshExploder ) )]
 public class HealthOfDrawing : Health
 {
     public MeshExploder MeshExploder {  get; set; }
@@ -11,7 +13,12 @@ public class HealthOfDrawing : Health
         if(MeshExploder != null)
         {
             MeshExploder.Explode();
-            Debug.Log( "Trying to spawn explosion here" );
+        }
+        else
+        {
+            Debug.Log( "MeshExploder was not added" );
+            MeshExploder = gameObject.AddComponent<MeshExploder>();
+            MeshExploder.Explode();
         }
         base.Die( position, force, attacker );
         
