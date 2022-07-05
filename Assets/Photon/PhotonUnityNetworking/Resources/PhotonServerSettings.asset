@@ -83,6 +83,7 @@ MonoBehaviour:
   - StopMessage
   - AddTargetMeshToManager
   - ChatMessage
+  - HealShieldRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

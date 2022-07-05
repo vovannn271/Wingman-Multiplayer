@@ -4248,3 +4248,64 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 720052abaa40fc5489df9bf04bde6362, type: 3}
+--- !u!1001 &2367907635223188517
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1874568221629776914, guid: 5e3621718f7e7b849a52db70c2a72b33, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5049284576864315861, guid: 5e3621718f7e7b849a52db70c2a72b33, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5049284576864315861, guid: 5e3621718f7e7b849a52db70c2a72b33, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -19.708649
+      objectReference: {fileID: 0}
+    - target: {fileID: 5049284576864315861, guid: 5e3621718f7e7b849a52db70c2a72b33, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 5049284576864315861, guid: 5e3621718f7e7b849a52db70c2a72b33, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5049284576864315861, guid: 5e3621718f7e7b849a52db70c2a72b33, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5049284576864315861, guid: 5e3621718f7e7b849a52db70c2a72b33, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5049284576864315861, guid: 5e3621718f7e7b849a52db70c2a72b33, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5049284576864315861, guid: 5e3621718f7e7b849a52db70c2a72b33, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5049284576864315861, guid: 5e3621718f7e7b849a52db70c2a72b33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5049284576864315861, guid: 5e3621718f7e7b849a52db70c2a72b33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5049284576864315861, guid: 5e3621718f7e7b849a52db70c2a72b33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804197087810932536, guid: 5e3621718f7e7b849a52db70c2a72b33, type: 3}
+      propertyPath: m_Name
+      value: TestHealthPickupPun
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5e3621718f7e7b849a52db70c2a72b33, type: 3}

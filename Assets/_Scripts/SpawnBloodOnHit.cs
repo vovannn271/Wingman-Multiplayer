@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using UnityEngine;
 using Opsive.Shared.Events;
 public class SpawnBloodOnHit : MonoBehaviour
 {

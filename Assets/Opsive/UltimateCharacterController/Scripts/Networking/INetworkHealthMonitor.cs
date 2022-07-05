@@ -40,5 +40,6 @@ namespace Opsive.UltimateCharacterController.Networking.Traits
         /// </summary>
         /// <param name="amount">The amount of health or shield to add.</param>
         void Heal(float amount);
+        void HealShield( float amount );
     }
 }

@@ -578,6 +578,53 @@ namespace Opsive.UltimateCharacterController.Traits
             return true;
         }
 
+
+        /// <summary>
+        /// Adds amount to shield
+        /// </summary>
+        /// <param name="amount">The amount shield to add.</param>
+        /// <returns>True if the object was healed.</returns>
+        public virtual bool HealShield( float amount )
+        {
+#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
+            if (m_NetworkInfo != null && m_NetworkInfo.IsLocalPlayer())
+            {
+                m_NetworkHealthMonitor.HealShield( amount );
+            }
+#endif
+
+            var healAmount = 0f;
+
+            // Add any remaining amount to the shield.
+            if (m_ShieldAttribute != null && amount > 0 && m_ShieldAttribute.Value < m_ShieldAttribute.MaxValue)
+            {
+                var shieldAmount = Mathf.Min( amount, m_ShieldAttribute.MaxValue - m_ShieldAttribute.Value );
+                m_ShieldAttribute.Value += shieldAmount;
+                healAmount += shieldAmount;
+            }
+
+            // Don't play any effects if the object wasn't healed.
+            if (healAmount == 0)
+            {
+                return false;
+            }
+
+            // Play any heal audio.
+            m_HealAudioClipSet.PlayAudioClip( m_GameObject );
+
+            EventHandler.ExecuteEvent<float>( m_GameObject, "OnHealthHeal", healAmount );
+            if (m_OnHealEvent != null)
+            {
+                m_OnHealEvent.Invoke( healAmount );
+            }
+            if (m_DamagePopupManager != null)
+            {
+                m_DamagePopupManager.OpenHealPopup( m_Transform.position, amount );
+            }
+
+            return true;
+        }
+
         /// <summary>
         /// The object doesn't have any health or shield left and should be deactivated.
         /// </summary>

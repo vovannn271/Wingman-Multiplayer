@@ -192,5 +192,20 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Traits
         {
             m_Health.Heal(amount);
         }
+        
+        public void HealShield(float amount)
+        {
+            m_PhotonView.RPC("HealShieldRPC", RpcTarget.Others, amount);
+        }
+
+        /// <summary>
+        /// Adds amount to shield
+        /// </summary>
+        /// <param name="amount">The amount of health or shield to add.</param>
+        [PunRPC]
+        private void HealShieldRPC( float amount)
+        {
+            m_Health.HealShield(amount);
+        }
     }
 }
