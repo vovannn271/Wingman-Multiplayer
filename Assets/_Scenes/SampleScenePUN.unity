@@ -544,6 +544,67 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5690854930166305796, guid: 44c96ca220dfa1c40b255ee4652402bf, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 44c96ca220dfa1c40b255ee4652402bf, type: 3}
+--- !u!1001 &1030384883
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2042660699008420602, guid: f1a7c5820b4ff3d46aaa640a03bfb4c7, type: 3}
+      propertyPath: sceneViewId
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4794804148675633680, guid: f1a7c5820b4ff3d46aaa640a03bfb4c7, type: 3}
+      propertyPath: m_Name
+      value: ShieldPickupPun
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990088091649770222, guid: f1a7c5820b4ff3d46aaa640a03bfb4c7, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990088091649770222, guid: f1a7c5820b4ff3d46aaa640a03bfb4c7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -16.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990088091649770222, guid: f1a7c5820b4ff3d46aaa640a03bfb4c7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990088091649770222, guid: f1a7c5820b4ff3d46aaa640a03bfb4c7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990088091649770222, guid: f1a7c5820b4ff3d46aaa640a03bfb4c7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990088091649770222, guid: f1a7c5820b4ff3d46aaa640a03bfb4c7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990088091649770222, guid: f1a7c5820b4ff3d46aaa640a03bfb4c7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990088091649770222, guid: f1a7c5820b4ff3d46aaa640a03bfb4c7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990088091649770222, guid: f1a7c5820b4ff3d46aaa640a03bfb4c7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990088091649770222, guid: f1a7c5820b4ff3d46aaa640a03bfb4c7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990088091649770222, guid: f1a7c5820b4ff3d46aaa640a03bfb4c7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f1a7c5820b4ff3d46aaa640a03bfb4c7, type: 3}
 --- !u!1 &1064088843
 GameObject:
   m_ObjectHideFlags: 0
@@ -4306,6 +4367,10 @@ PrefabInstance:
     - target: {fileID: 8804197087810932536, guid: 5e3621718f7e7b849a52db70c2a72b33, type: 3}
       propertyPath: m_Name
       value: TestHealthPickupPun
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804197087810932536, guid: 5e3621718f7e7b849a52db70c2a72b33, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e3621718f7e7b849a52db70c2a72b33, type: 3}

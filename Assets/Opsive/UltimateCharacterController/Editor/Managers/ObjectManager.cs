@@ -35,7 +35,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
             MuzzleFlash,        // Builds an object with the MuzzleFlash component.
             Shell,              // Builds an object with the Shell component.
             Smoke,              // Builds an object with the Smoke component.
-            ShieldPickup,       // To build an object with Shield Pickup
+           // ShieldPickup,       // To build an object with Shield Pickup
 #endif
 #if ULTIMATE_CHARACTER_CONTROLLER_MELEE
             MeleeTrail,         // Builds an object with the Trail component.
@@ -144,11 +144,11 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                     AddComponentIfNotAdded<HealthPickup>(createdObject);
                     AddComponentIfNotAdded<Respawner>(createdObject);
                     break;
-                case ObjectType.ShieldPickup:
-                AddComponentIfNotAdded<SphereCollider>( createdObject );
-              //  AddComponentIfNotAdded<ShieldPickup>( createdObject );
-                AddComponentIfNotAdded<Respawner>( createdObject );
-                break;
+              //  case ObjectType.ShieldPickup:
+              //  AddComponentIfNotAdded<SphereCollider>( createdObject );
+               // AddComponentIfNotAdded<ShieldPickup>( createdObject );
+              //  AddComponentIfNotAdded<Respawner>( createdObject );
+              //  break;
 #if ULTIMATE_CHARACTER_CONTROLLER_SHOOTER
                 case ObjectType.Projectile:
                     AddComponentIfNotAdded<Rigidbody>(createdObject);
