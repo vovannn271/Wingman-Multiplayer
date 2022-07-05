@@ -255,8 +255,6 @@ using Photon.Realtime;
 
 
 
-
-
             if (_photonView.IsMine)
             {
                 if (!MP_TypeCustom_DRAW)
@@ -323,8 +321,8 @@ using Photon.Realtime;
             {
                 HealthOfDrawing curHealth = internal_currentlyTargetMesh.AddComponent<HealthOfDrawing>();
                 internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Traits.PunAttributeMonitor>();
-                internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Traits.PunHealthMonitor>();
-                internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Objects.PunLocationMonitor>();//test
+                internal_currentlyTargetMesh.AddComponent<PunDrawingHealthMonitor>();
+                //internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Objects.PunLocationMonitor>();//test
 
 
                 curHealth.DeactivateOnDeath = true;
@@ -351,9 +349,9 @@ using Photon.Realtime;
             curPV.ViewID = curViewId;
 
             HealthOfDrawing curHealth = internal_currentlyTargetMesh.AddComponent<HealthOfDrawing>();
-            internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Traits.PunHealthMonitor>();
             internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Traits.PunAttributeMonitor>();            
-            internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Objects.PunLocationMonitor>();//test
+            internal_currentlyTargetMesh.AddComponent<PunDrawingHealthMonitor>();
+            //internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Objects.PunLocationMonitor>();//test
             
             curHealth.DeactivateOnDeath = true;
             curHealth.MeshExploder = me;
