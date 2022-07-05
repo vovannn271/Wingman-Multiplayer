@@ -49,7 +49,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         /// Rotates the character to be oriented with the specified normal.
         /// </summary>
         /// <param name="targetNormal">The direction that the character should be oriented towards on the vertical axis.</param>
-        protected void Rotate(Vector3 targetNormal)
+        public void Rotate(Vector3 targetNormal)
         {
             var deltaRotation = Quaternion.Euler(m_CharacterLocomotion.DeltaRotation);
             var rotation = m_Transform.rotation * deltaRotation;

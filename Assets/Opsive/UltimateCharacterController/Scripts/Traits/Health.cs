@@ -502,6 +502,7 @@ namespace Opsive.UltimateCharacterController.Traits
         /// </summary>
         public void ImmediateDeath()
         {
+            Debug.Log( "ImmediateDeath" );
             ImmediateDeath(m_Transform.position, Vector3.zero, 0);
         }
 
@@ -513,6 +514,7 @@ namespace Opsive.UltimateCharacterController.Traits
         /// <param name="forceMagnitude">The magnitude of the force that is applied to the object.</param>
         public void ImmediateDeath(Vector3 position, Vector3 direction, float forceMagnitude)
         {
+            Debug.Log( "ImmediateDeath" );
             var amount = 0f;
             if (m_HealthAttribute != null) {
                 amount += m_HealthAttribute.Value;
@@ -581,6 +583,7 @@ namespace Opsive.UltimateCharacterController.Traits
         /// </summary>
         private void Deactivate()
         {
+            Debug.Log( "deactivating" );
             m_GameObject.SetActive(false);
         }
 

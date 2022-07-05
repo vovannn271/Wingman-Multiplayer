@@ -342,6 +342,8 @@ using Photon.Realtime;
     {
         if (internal_currentlyTargetMesh == null)
             return;
+        MeshExploder me = internal_currentlyTargetMesh.AddComponent<MeshExploder>();
+
 
         if (internal_currentlyTargetMesh.GetComponent<PhotonView>() == null)
         {
@@ -354,7 +356,7 @@ using Photon.Realtime;
             internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Objects.PunLocationMonitor>();//test
             
             curHealth.DeactivateOnDeath = true;
-            curHealth.MeshExploder = internal_currentlyTargetMesh.AddComponent<MeshExploder>();
+            curHealth.MeshExploder = me;
 
             Debug.Log( "added view id from outside" + curPV.ViewID );
         }

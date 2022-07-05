@@ -51,11 +51,15 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Object
                 return;
             }
 
+            
+
             // Initialize the projectile from the data within the InstantiationData field.
             var originator = PhotonNetwork.GetPhotonView((int)m_InstantiationData[8]);
             Initialize((Vector3)m_InstantiationData[0], (Vector3)m_InstantiationData[1], m_DamageProcessor, (float)m_InstantiationData[2],
                             (float)m_InstantiationData[3], (int)m_InstantiationData[4], (int)m_InstantiationData[5],
                             (string)m_InstantiationData[6], (float)m_InstantiationData[7], null, originator != null ? originator.gameObject : null);
+
+            
         }
     }
 }
