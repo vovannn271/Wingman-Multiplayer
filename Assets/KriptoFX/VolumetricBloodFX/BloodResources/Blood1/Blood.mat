@@ -47,6 +47,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _LookupFade:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -78,6 +82,7 @@ Material:
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
+    - _Cutout: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
@@ -105,8 +110,9 @@ Material:
     - _pack_normal: 0
     - _speed: 35
     m_Colors:
-    - _Color: {r: 0, g: 1, b: 0.37606883, a: 1}
+    - _Color: {r: 1, g: 0.2783019, b: 0.86559457, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HeightOffset: {r: -45.4, g: -26.17, b: 12.7, a: 1}
     - _SunPos: {r: 0.56, g: 1.07, b: -0.09, a: 0.83}
+    - _TintColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

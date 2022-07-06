@@ -51,7 +51,7 @@ namespace Opsive.UltimateCharacterController.Traits
         private UltimateCharacterLocomotion m_CharacterLocomotion;
         private int m_CharacterLayer;
         private Effect m_DamagedEffect;
-
+        private int m_BloodId = 0;
 
         /// <summary>
         /// Initialize the default values.
@@ -90,9 +90,17 @@ namespace Opsive.UltimateCharacterController.Traits
             }
 
 
+
+            //instanciate blood
+            if (m_BloodId == BloodFX.Length)
+                m_BloodId = 0;
+
             float angle = Mathf.Atan2( damageData.Direction.x, damageData.Direction.z ) * Mathf.Rad2Deg + 180;
-            var instance = GameObject.Instantiate( BloodFX[0], damageData.Position, Quaternion.Euler( 0, angle + 90, 0 ) );
+            var instance = GameObject.Instantiate( BloodFX[m_BloodId], damageData.Position, Quaternion.Euler( 0, angle + 60, 0 ) );
+            m_BloodId++;
         }
+
+        
         Transform GetNearestObject( Transform hit, Vector3 hitPos )
         {
             var closestPos = 100f;
