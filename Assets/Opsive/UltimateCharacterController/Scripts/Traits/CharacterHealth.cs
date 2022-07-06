@@ -35,6 +35,7 @@ namespace Opsive.UltimateCharacterController.Traits
         [Tooltip("The index of the effect that should be started when the character takes damage.")]
         [HideInInspector] [SerializeField] protected int m_DamagedEffectIndex = -1;
 
+
         public bool ApplyFallDamage { get { return m_ApplyFallDamage; } set { m_ApplyFallDamage = value; } }
         public float MinFallDamageHeight { get { return m_MinFallDamageHeight; } set { m_MinFallDamageHeight = value; } }
         public float MinFallDamage { get { return m_MinFallDamage; } set { m_MinFallDamage = value; } }
@@ -44,9 +45,13 @@ namespace Opsive.UltimateCharacterController.Traits
         public string StartDamagedName { get { return m_DamagedEffectName; } set { m_DamagedEffectName = value; } }
         public int DamagedEffectIndex { get { return m_DamagedEffectIndex; } set { m_DamagedEffectIndex = value; } }
 
+        [SerializeField] private GameObject[] BloodFX;
+
+
         private UltimateCharacterLocomotion m_CharacterLocomotion;
         private int m_CharacterLayer;
         private Effect m_DamagedEffect;
+
 
         /// <summary>
         /// Initialize the default values.
@@ -83,6 +88,34 @@ namespace Opsive.UltimateCharacterController.Traits
             if (m_DamagedEffect != null) {
                 m_CharacterLocomotion.TryStartEffect(m_DamagedEffect);
             }
+
+
+            float angle = Mathf.Atan2( damageData.Direction.x, damageData.Direction.z ) * Mathf.Rad2Deg + 180;
+            var instance = GameObject.Instantiate( BloodFX[0], damageData.Position, Quaternion.Euler( 0, angle + 90, 0 ) );
+        }
+        Transform GetNearestObject( Transform hit, Vector3 hitPos )
+        {
+            var closestPos = 100f;
+            Transform closestBone = null;
+            var childs = hit.GetComponentsInChildren<Transform>();
+
+            foreach (var child in childs)
+            {
+                var dist = Vector3.Distance( child.position, hitPos );
+                if (dist < closestPos)
+                {
+                    closestPos = dist;
+                    closestBone = child;
+                }
+            }
+
+            var distRoot = Vector3.Distance( hit.position, hitPos );
+            if (distRoot < closestPos)
+            {
+                closestPos = distRoot;
+                closestBone = hit;
+            }
+            return closestBone;
         }
 
         /// <summary>

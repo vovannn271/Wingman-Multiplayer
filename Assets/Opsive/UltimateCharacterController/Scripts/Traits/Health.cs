@@ -630,7 +630,6 @@ namespace Opsive.UltimateCharacterController.Traits
         /// </summary>
         private void Deactivate()
         {
-            Debug.Log( "deactivating" );
             m_GameObject.SetActive(false);
         }
 

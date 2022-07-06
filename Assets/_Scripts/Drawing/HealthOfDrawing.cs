@@ -10,10 +10,8 @@ public class HealthOfDrawing : Health
 
     public override void Die( Vector3 position, Vector3 force, GameObject attacker )
     {
-        Debug.Log( "Dying" );
         if (MeshExploder != null)
         {
-            Debug.Log( "Trying to explode" );
             MeshExploder.Explode();
 
         }
