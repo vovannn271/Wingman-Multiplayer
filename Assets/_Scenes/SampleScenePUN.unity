@@ -249,7 +249,7 @@ MonoBehaviour:
   m_InactiveTimeout: 60
   brushPrefab: {fileID: 1636921528585751100, guid: 565b3604a8faadd419e8a583d5275c23, type: 3}
   brushGO: {fileID: 0}
-  m_Character: {fileID: 5003162522626234791, guid: 016a1b398e1922e45b66e1ea1d45698d, type: 3}
+  m_Character: {fileID: 5003162522626234791, guid: 5f10c5ae1fea824489c5c243be28f4aa, type: 3}
 --- !u!114 &323542516
 MonoBehaviour:
   m_ObjectHideFlags: 0
