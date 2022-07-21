@@ -77,10 +77,10 @@ MonoBehaviour:
     value: 20
   mixerRedOutRedIn:
     overrideState: 1
-    value: 104
+    value: -4
   mixerRedOutGreenIn:
     overrideState: 1
-    value: -6
+    value: -2
   mixerRedOutBlueIn:
     overrideState: 0
     value: 0
@@ -104,7 +104,7 @@ MonoBehaviour:
     value: 100
   lift:
     overrideState: 1
-    value: {x: 1, y: 0.9431301, z: 0.9399477, w: -0.09077155}
+    value: {x: 1, y: 0.91969913, z: 0.9291069, w: -0.09077155}
   gamma:
     overrideState: 1
     value: {x: 0.9959392, y: 0.9789323, z: 1, w: 0}
