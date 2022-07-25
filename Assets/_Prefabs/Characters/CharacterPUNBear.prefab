@@ -11,9 +11,13 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5003162522626234790, guid: 016a1b398e1922e45b66e1ea1d45698d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5003162522626234791, guid: 016a1b398e1922e45b66e1ea1d45698d, type: 3}
       propertyPath: m_Name
-      value: CharacterPUN Variant
+      value: CharacterPUNBear
       objectReference: {fileID: 0}
     - target: {fileID: 5003162522626234809, guid: 016a1b398e1922e45b66e1ea1d45698d, type: 3}
       propertyPath: m_RootOrder
