@@ -40,8 +40,6 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
         [Tooltip("The amount of time it takes until an inactive player is removed from the room.")]
         [SerializeField] protected float m_InactiveTimeout = 60;
 
-        [SerializeField] protected GameObject brushPrefab;
-        [SerializeField] private GameObject brushGO;
         
 
 
@@ -87,7 +85,7 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
         /// <summary>
         /// Initialize the default values.
         /// </summary>
-        private void Start()
+        public virtual void Start()
         {
             var kinematicObjectManager = GameObject.FindObjectOfType<KinematicObjectManager>();
             m_Players = new PhotonView[kinematicObjectManager.StartCharacterCount];
@@ -100,12 +98,6 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
             m_RaiseEventOptions.Receivers = ReceiverGroup.Others;
 
             SpawnPlayer( PhotonNetwork.LocalPlayer );
-
-           
-           
-          brushGO = PhotonNetwork.Instantiate( brushPrefab.name, new Vector3( 0f, 5f, 0f ), Quaternion.identity, 0 );
-            
-
         }
 
 

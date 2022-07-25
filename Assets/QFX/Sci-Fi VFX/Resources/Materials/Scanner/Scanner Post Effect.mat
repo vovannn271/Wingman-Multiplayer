@@ -4,8 +4,9 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: Scanner Post Effect
   m_Shader: {fileID: 4800000, guid: 36cbf2df4f29401b8fe70d18c9a7ed86, type: 3}
   m_ShaderKeywords: _GRAYSCALE_ON _ISANIMATED_ON _LERPSONAR_ON _TOGGLESWITCH0_ON
@@ -165,3 +166,4 @@ Material:
     - _Vector1: {r: 0, g: 0, b: 0, a: 0}
     - _WorldPosition: {r: 0.13, g: 0, b: 1.76, a: 0}
     - _WorldSpaceScannerPos: {r: 0, g: 1, b: -5.54, a: 0}
+  m_BuildTextureStacks: []
