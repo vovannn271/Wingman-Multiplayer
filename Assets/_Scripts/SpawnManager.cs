@@ -4,6 +4,7 @@ using UnityEngine;
 using Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game;
 using Photon.Realtime;
 using Photon.Pun;
+using Opsive.UltimateCharacterController.Character;
 
 /// <summary>
 /// Manages the character instantiation within a PUN room.
@@ -21,7 +22,8 @@ public class SpawnManager : SpawnManagerBase
     {
         base.Start();
         _brushGO = PhotonNetwork.Instantiate( brushPrefab.name, new Vector3( 0f, 5f, 0f ), Quaternion.identity, 0 );
-        //_character.GetComponent<DrawingSkill>
+        Player.GetComponent<UltimateCharacterLocomotion>().GetAbility<DrawingSkill>().Brush = _brushGO.GetComponent<PUNMeshPaint>();
+        //Player.GetComponent<DrawingSkill>().Brush = _brushGO.GetComponent<PUNMeshPaint>();
     }
 
 

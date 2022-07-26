@@ -418,16 +418,35 @@ using Photon.Realtime;
             return Vector3.zero;
         }
 
-       
-        //-Input and others
-        private bool INTERNAL_GetInput( bool Up = false )
+
+
+    //getting inpuyt from DrawingSkill
+    bool _isKeyDown = false;
+    bool _isKeyUp = true;
+
+    public void SetInput( bool keyDown, bool keyUp )
+    {
+        _isKeyDown = keyDown;
+        _isKeyUp = keyUp;
+    }
+
+
+    //-Input and others
+    private bool INTERNAL_GetInput( bool Up = false )
         {
 
-                if (!Up)
-                    return Input.GetKeyDown( MP_INPUT_PC_MeshPaintInput );
-                else
-                    return Input.GetKeyUp( MP_INPUT_PC_MeshPaintInput );
-        }
+        /*  if (!Up)
+              return Input.GetKeyDown( MP_INPUT_PC_MeshPaintInput );
+          else
+              return Input.GetKeyUp( MP_INPUT_PC_MeshPaintInput );*/
+        if (!Up)
+            return _isKeyDown;
+        else
+            return _isKeyUp;
+
+    }
+
+
 
         private void INTERNAL_ChangeBrushSize( float size )
         {

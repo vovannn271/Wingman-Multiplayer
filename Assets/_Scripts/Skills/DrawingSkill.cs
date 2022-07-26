@@ -7,9 +7,18 @@ using Opsive.UltimateCharacterController.Traits;
 
 public class DrawingSkill : Ability
 {
+
+    public PUNMeshPaint Brush { private get { return _brush; }  set { _brush = value; } }
+    [SerializeField] private float _decreaseAmount = 0.2f;
+    
+
     private AttributeManager _am;
     private Attribute _drawingMana;
-    [SerializeField] private float _decreaseAmount = 0.5f;
+    private PUNMeshPaint _brush;
+
+
+
+    public override bool IsConcurrent { get { return true; } }
 
     public override void Awake()
     {
@@ -27,6 +36,27 @@ public class DrawingSkill : Ability
 
         return (_drawingMana.Value > _decreaseAmount );
     }
+
+    protected override void AbilityStarted()
+    {
+        base.AbilityStarted();
+
+        _brush.SetInput( true, false );
+    }
+
+    protected override void AbilityStopped( bool force )
+    {
+        base.AbilityStopped( force );
+
+        _brush.SetInput( false, true );
+    }
+
+
+
+
+
+
+
 
 
     public override void Update()
