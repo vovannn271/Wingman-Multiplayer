@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Opsive.UltimateCharacterController.Character.Abilities;
 using Opsive.UltimateCharacterController.Traits;
-
+using Photon.Pun;
 
 public class DrawingSkill : Ability
 {
 
-    public PUNMeshPaint Brush { private get { return _brush; }  set { _brush = value; } }
+    public PUNMeshPaint Brush { get { return _brush; }  set { _brush = value; } }
+    public PhotonView CurrentPlayerPhotonView { get; set; }
     [SerializeField] private float _decreaseAmount = 0.2f;
     
 
@@ -29,12 +30,15 @@ public class DrawingSkill : Ability
 
     public override bool CanStartAbility()
     {
-        if (!base.CanStartAbility())
+        if ( CurrentPlayerPhotonView == null || !base.CanStartAbility())
         {
             return false;
         }
 
+        
         return (_drawingMana.Value > _decreaseAmount );
+
+        
     }
 
     protected override void AbilityStarted()
@@ -48,7 +52,15 @@ public class DrawingSkill : Ability
     {
         base.AbilityStopped( force );
 
-        _brush.SetInput( false, true );
+        if ( CurrentPlayerPhotonView == null)
+        {
+            return;
+        }
+
+        if ( CurrentPlayerPhotonView.IsMine)
+        {
+            _brush.SetInput( false, true );
+        }
     }
 
 

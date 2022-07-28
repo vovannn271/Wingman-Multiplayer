@@ -435,10 +435,18 @@ using Photon.Realtime;
     private bool INTERNAL_GetInput( bool Up = false )
         {
 
-        /*  if (!Up)
+        /*
+          if (!Up)
+            {
+            Debug.Log("!Up" + Input.GetKeyDown( MP_INPUT_PC_MeshPaintInput ) );
               return Input.GetKeyDown( MP_INPUT_PC_MeshPaintInput );
-          else
-              return Input.GetKeyUp( MP_INPUT_PC_MeshPaintInput );*/
+            }
+        else
+        {
+            Debug.Log( Input.GetKeyUp( MP_INPUT_PC_MeshPaintInput ) );
+              return Input.GetKeyUp( MP_INPUT_PC_MeshPaintInput );
+
+        }*/
         if (!Up)
             return _isKeyDown;
         else
