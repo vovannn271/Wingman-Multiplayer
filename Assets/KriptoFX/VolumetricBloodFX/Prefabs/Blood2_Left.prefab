@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 764304065843912187}
   - component: {fileID: 764304065843912184}
   - component: {fileID: 764304065843912185}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Blood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 764304065919278305}
   - component: {fileID: 764304065919278318}
   - component: {fileID: 764304065919278319}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Decal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,7 +344,7 @@ GameObject:
   m_Component:
   - component: {fileID: 764304066602274967}
   - component: {fileID: 764304066602274964}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Blood2_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}

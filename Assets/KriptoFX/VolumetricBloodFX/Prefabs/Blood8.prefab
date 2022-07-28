@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2969731574136442271}
   - component: {fileID: 98639587465039432}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Blood8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ GameObject:
   - component: {fileID: 2961394125678646351}
   - component: {fileID: 2961394125679646351}
   - component: {fileID: 2828823522122105021}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Blood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 7114301080987602719}
   - component: {fileID: 7114301080987602714}
   - component: {fileID: 7114301080987602715}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Decal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
