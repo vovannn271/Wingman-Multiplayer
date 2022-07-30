@@ -84,6 +84,9 @@ MonoBehaviour:
   - AddTargetMeshToManager
   - ChatMessage
   - HealShieldRPC
+  - RpcClearBuffer
+  - RpcNonServerOwnedTeleportFromServer
+  - RpcTeleport
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

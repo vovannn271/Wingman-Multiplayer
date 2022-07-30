@@ -20,7 +20,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Opsive/UltimateCharacterController/Add-Ons/Multiplayer/PhotonPUN/Demo/Menu.unity
     guid: 1382d57a08a6d1546aec02771ce2a1fb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Opsive/UltimateCharacterController/Add-Ons/Multiplayer/PhotonPUN/Demo/DemoRoom.unity
     guid: d78f1d0e7b146de46ba3461df34164c9
   m_configObjects: {}
