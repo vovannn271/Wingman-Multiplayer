@@ -40,28 +40,34 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
         [Tooltip("The amount of time it takes until an inactive player is removed from the room.")]
         [SerializeField] protected float m_InactiveTimeout = 60;
 
-        [SerializeField] protected GameObject brushPrefab;
-        [SerializeField] private GameObject brushGO;
-        
 
+        //[SerializeField] protected GameObject brushPrefab;
+       // private GameObject _brushGO;
 
         public SpawnMode Mode { get { return m_Mode; } set { m_Mode = value; } }
         public Transform SpawnLocation { get { return m_SpawnLocation; } set { m_SpawnLocation = value; } }
         public Vector3 SpawnLocationOffset { get { return m_SpawnLocationOffset; } set { m_SpawnLocationOffset = value; } }
         public int SpawnPointGrouping { get { return m_SpawnPointGrouping; } set { m_SpawnPointGrouping = value; } }
+        public GameObject Player { get { return _player; } protected set { _player = value; } }
 
-        private PhotonView[] m_Players;
-        private int m_PlayerCount;
 
-        private SendOptions m_ReliableSendOption;
-        private RaiseEventOptions m_RaiseEventOptions;
-        private Dictionary<int, int> m_ActorNumberByPhotonViewIndex;
-        private Dictionary<Player, InactivePlayer> m_InactivePlayers;
+        protected GameObject _player;
+        protected PhotonView[] m_Players;
+        protected int m_PlayerCount;
+
+        protected SendOptions m_ReliableSendOption;
+        protected RaiseEventOptions m_RaiseEventOptions;
+        protected Dictionary<int, int> m_ActorNumberByPhotonViewIndex;
+        protected Dictionary<Player, InactivePlayer> m_InactivePlayers;
+
+
+   //     [SerializeField] protected GameObject brushPrefab;
+   //     protected GameObject _brushGO;
 
         /// <summary>
         /// Stores the data about the player that became inactive.
         /// </summary>
-        private struct InactivePlayer
+        protected struct InactivePlayer
         {
             public int PlayerIndex;
             public Vector3 Position;
@@ -87,7 +93,7 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
         /// <summary>
         /// Initialize the default values.
         /// </summary>
-        private void Start()
+        public virtual void Start()
         {
             var kinematicObjectManager = GameObject.FindObjectOfType<KinematicObjectManager>();
             m_Players = new PhotonView[kinematicObjectManager.StartCharacterCount];
@@ -100,12 +106,6 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
             m_RaiseEventOptions.Receivers = ReceiverGroup.Others;
 
             SpawnPlayer( PhotonNetwork.LocalPlayer );
-
-           
-           
-          brushGO = PhotonNetwork.Instantiate( brushPrefab.name, new Vector3( 0f, 5f, 0f ), Quaternion.identity, 0 );
-            
-
         }
 
 
@@ -114,7 +114,7 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
         /// Spawns the character within the room. A manual spawn method is used to have complete control over the spawn location.
         /// </summary>
         /// <param name="newPlayer">The player that entered the room.</param>
-        public void SpawnPlayer(Player newPlayer)
+        public virtual void SpawnPlayer(Player newPlayer)
         {
             // Only the master client can spawn new players.
             if (!PhotonNetwork.IsMasterClient) {
@@ -154,8 +154,9 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
             }
 
             // Instantiate the player and let the PhotonNetwork know of the new character.
-            var player = GameObject.Instantiate(GetCharacterPrefab(newPlayer), spawnPosition, spawnRotation);
-            var photonView = player.GetComponent<PhotonView>();
+            Player = GameObject.Instantiate(GetCharacterPrefab(newPlayer), spawnPosition, spawnRotation);
+            var photonView = _player.GetComponent<PhotonView>();
+
             photonView.ViewID = PhotonNetwork.AllocateViewID(newPlayer.ActorNumber);
             if (photonView.ViewID > 0) {
                 // As of PUN 2.19, when the ViewID is allocated the Owner is not set. Set the owner to null and then to the player so the owner will correctly be assigned.
@@ -165,7 +166,7 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
                 // The character has been created. All other clients need to instantiate the character as well.
                 var data = new object[]
                 {
-                    player.transform.position, player.transform.rotation, photonView.ViewID, newPlayer.ActorNumber
+                    _player.transform.position, _player.transform.rotation, photonView.ViewID, newPlayer.ActorNumber
                 };
                 m_RaiseEventOptions.TargetActors = null;
                 PhotonNetwork.RaiseEvent(PhotonEventIDs.PlayerInstantiation, data, m_RaiseEventOptions, m_ReliableSendOption);
@@ -174,7 +175,7 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
                 if (newPlayer != PhotonNetwork.LocalPlayer) {
                     // Deactivate the character until the remote machine has the chance to create it. This will prevent the character from
                     // being active on the Master Client without being able to be controlled.
-                    player.SetActive(false);
+                    _player.SetActive(false);
 
                     data = new object[m_PlayerCount * 4];
                     for (int i = 0; i < m_PlayerCount; ++i) {
@@ -186,12 +187,16 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
                     m_RaiseEventOptions.TargetActors = new int[] { newPlayer.ActorNumber };
                     PhotonNetwork.RaiseEvent(PhotonEventIDs.PlayerInstantiation, data, m_RaiseEventOptions, m_ReliableSendOption);
                 }
+                else
+                {
+                    Debug.Log( "spawning local" + photonView.ViewID );
+                }
 
                 AddPhotonView(photonView);
                 EventHandler.ExecuteEvent("OnPlayerEnteredRoom", photonView.Owner, photonView.gameObject);
             } else {
                 Debug.LogError("Failed to allocate a ViewId.");
-                Destroy(player);
+                Destroy(_player);
             }
 
 
@@ -210,7 +215,7 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
         /// Adds the PhotonView to the player list.
         /// </summary>
         /// <param name="photonView">The PhotonView that should be added.</param>
-        private void AddPhotonView(PhotonView photonView)
+        protected void AddPhotonView(PhotonView photonView)
         {
             if (m_PlayerCount == m_Players.Length) {
                 System.Array.Resize(ref m_Players, m_PlayerCount + 1);
@@ -279,13 +284,16 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
                 m_PlayerCount--;
             }
         }
-
+        
+        
+        protected GameObject character;
         /// <summary>
         /// A event from Photon has been sent.
         /// </summary>
         /// <param name="photonEvent">The Photon event.</param>
-        public void OnEvent(EventData photonEvent)
+        public virtual void OnEvent(EventData photonEvent)
         {
+
             if (photonEvent.Code == PhotonEventIDs.PlayerInstantiation) {
                 // The Master Client has instantiated a character. Create that character on the local client as well.
                 var data = (object[])photonEvent.CustomData;
@@ -296,7 +304,7 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
                     }
 
                     var player = PhotonNetwork.CurrentRoom.GetPlayer((int)data[i * 4 + 3]);
-                    var character = Instantiate(GetCharacterPrefab(player), (Vector3)data[i * 4], (Quaternion)data[i * 4 + 1]);
+                    character = Instantiate(GetCharacterPrefab(player), (Vector3)data[i * 4], (Quaternion)data[i * 4 + 1]);
 
                     var photonView = character.GetCachedComponent<PhotonView>();
                     photonView.ViewID = viewID;
@@ -305,11 +313,12 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
                     photonView.TransferOwnership(player);
                     AddPhotonView(photonView);
 
-
+                    Debug.Log( "spawn player" + photonView.ViewID );
 
                     // If the instantiated character is a local player then the Master Client is waiting for it to be created on the client. Notify the Master Client
                     // that the character has been created so it can be activated.
                     if (photonView.IsMine) {
+                        Debug.Log( "spawn player" + photonView.ViewID );
                         m_RaiseEventOptions.TargetActors = new int[] { PhotonNetwork.MasterClient.ActorNumber };
                         PhotonNetwork.RaiseEvent(PhotonEventIDs.RemotePlayerInstantiationComplete, photonView.Owner.ActorNumber, m_RaiseEventOptions, m_ReliableSendOption);
                     } else {

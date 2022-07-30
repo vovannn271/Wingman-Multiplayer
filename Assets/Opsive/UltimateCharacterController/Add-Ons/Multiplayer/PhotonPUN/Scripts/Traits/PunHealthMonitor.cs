@@ -23,15 +23,15 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Traits
     [RequireComponent(typeof(PhotonView))]
     public class PunHealthMonitor : MonoBehaviour, INetworkHealthMonitor
     {
-        private GameObject m_GameObject;
-        private Health m_Health;
-        private InventoryBase m_Inventory;
-        private PhotonView m_PhotonView;
+        protected GameObject m_GameObject;
+        protected Health m_Health;
+        protected InventoryBase m_Inventory;
+        protected PhotonView m_PhotonView;
 
         /// <summary>
         /// Initializes the default values.
         /// </summary>
-        private void Awake()
+        protected virtual void Awake()
         {
             m_GameObject = gameObject;
             m_Health = m_GameObject.GetCachedComponent<Health>();
@@ -165,7 +165,7 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Traits
         /// <param name="force">The amount of force applied to the object while taking the damage.</param>
         /// <param name="attackerViewID">The PhotonView ID of the GameObject that killed the object.</param>
         [PunRPC]
-        private void DieRPC(Vector3 position, Vector3 force, int attackerViewID)
+        protected virtual void DieRPC(Vector3 position, Vector3 force, int attackerViewID)
         {
             PhotonView attacker = null;
             if (attackerViewID != -1) {
@@ -191,6 +191,21 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Traits
         private void HealRPC(float amount)
         {
             m_Health.Heal(amount);
+        }
+        
+        public void HealShield(float amount)
+        {
+            m_PhotonView.RPC("HealShieldRPC", RpcTarget.Others, amount);
+        }
+
+        /// <summary>
+        /// Adds amount to shield
+        /// </summary>
+        /// <param name="amount">The amount of health or shield to add.</param>
+        [PunRPC]
+        private void HealShieldRPC( float amount)
+        {
+            m_Health.HealShield(amount);
         }
     }
 }

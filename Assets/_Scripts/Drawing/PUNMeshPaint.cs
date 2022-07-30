@@ -255,8 +255,6 @@ using Photon.Realtime;
 
 
 
-
-
             if (_photonView.IsMine)
             {
                 if (!MP_TypeCustom_DRAW)
@@ -273,20 +271,7 @@ using Photon.Realtime;
                 {
                         MP_TypeCustom_DRAW = false;
 
-
-
-
-
-                    int viewIDToSend = MineDrawingMultiplayerSetUp();
-                    if ( viewIDToSend == -1)
-                    {
-                        Debug.Log( "Can't send view ID " );
-                        return;
-                    }
-
-                    RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
-                    PhotonNetwork.RaiseEvent( MultiplayerStoppedDrawingEvent, viewIDToSend, raiseEventOptions, ExitGames.Client.Photon.SendOptions.SendReliable );
-
+                        SetUpMineDrawing();
                 }
             }
             }
@@ -294,26 +279,28 @@ using Photon.Realtime;
             
 
         }
+    private void SetUpMineDrawing()
+    {
 
-    [PunRPC]
-    void AddTargetMeshToManager()
-    {
-        Debug.Log( string.Format( "started drawing" ) );
-        currentTargetMeshID = _dm.TakeTargetMeshId();
+        //Multiplayer Part
+        int viewIDToSend = MineDrawingMultiplayerSetUp();
+        if (viewIDToSend == -1)
+        {
+            Debug.Log( "Can't send view ID " );
+            return;
+        }
+
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
+        PhotonNetwork.RaiseEvent( MultiplayerStoppedDrawingEvent, viewIDToSend, raiseEventOptions, ExitGames.Client.Photon.SendOptions.SendReliable );
     }
+
     
-    [PunRPC]
-    void StopMessage()
-    {
-        //internal_currentlyTargetMesh.gameObject.AddComponent<Opsive.UltimateCharacterController.Traits.Health>();
-        Debug.Log( string.Format( "stopped drawing" ) );
-    }
     public void OnEvent( ExitGames.Client.Photon.EventData photonEvent )
     {
         byte eventCode = photonEvent.Code;
         if (eventCode == MultiplayerStoppedDrawingEvent)
         {
-            AddPhotonViewToNonMineDrawing( (int)photonEvent.CustomData );
+            SetUpNonMineDrawing( (int)photonEvent.CustomData );
         }
 
     }
@@ -327,18 +314,19 @@ using Photon.Realtime;
         if ( internal_currentlyTargetMesh.GetComponent<PhotonView>() == null)
         {
             PhotonView curPV = internal_currentlyTargetMesh.AddComponent<PhotonView>();
+            MeshExploder me = internal_currentlyTargetMesh.AddComponent<MeshExploder>();
             
             
             if (PhotonNetwork.AllocateViewID( curPV ))
             {
-                Opsive.UltimateCharacterController.Traits.Health curHealth = internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.Traits.Health>();
-                internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Traits.PunHealthMonitor>();
+                HealthOfDrawing curHealth = internal_currentlyTargetMesh.AddComponent<HealthOfDrawing>();
                 internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Traits.PunAttributeMonitor>();
-                internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Objects.PunLocationMonitor>();//test
+                internal_currentlyTargetMesh.AddComponent<PunDrawingHealthMonitor>();
+                //internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Objects.PunLocationMonitor>();//test
 
 
                 curHealth.DeactivateOnDeath = true;
-                
+                curHealth.MeshExploder = me;
 
                 return curPV.ViewID;
             }
@@ -348,23 +336,25 @@ using Photon.Realtime;
         return -1;
     }
 
-    private void AddPhotonViewToNonMineDrawing( int curViewId )
+    private void SetUpNonMineDrawing( int curViewId )
     {
         if (internal_currentlyTargetMesh == null)
             return;
+        MeshExploder me = internal_currentlyTargetMesh.AddComponent<MeshExploder>();
+
 
         if (internal_currentlyTargetMesh.GetComponent<PhotonView>() == null)
         {
             PhotonView curPV = internal_currentlyTargetMesh.AddComponent<PhotonView>();
             curPV.ViewID = curViewId;
 
-            Opsive.UltimateCharacterController.Traits.Health curHealth = internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.Traits.Health>();
-            internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Traits.PunHealthMonitor>();
-            internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Traits.PunAttributeMonitor>();
+            HealthOfDrawing curHealth = internal_currentlyTargetMesh.AddComponent<HealthOfDrawing>();
+            internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Traits.PunAttributeMonitor>();            
+            internal_currentlyTargetMesh.AddComponent<PunDrawingHealthMonitor>();
+            //internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Objects.PunLocationMonitor>();//test
             
-            internal_currentlyTargetMesh.AddComponent<Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Objects.PunLocationMonitor>();//test
             curHealth.DeactivateOnDeath = true;
-
+            curHealth.MeshExploder = me;
 
             Debug.Log( "added view id from outside" + curPV.ViewID );
         }
@@ -428,16 +418,43 @@ using Photon.Realtime;
             return Vector3.zero;
         }
 
-       
-        //-Input and others
-        private bool INTERNAL_GetInput( bool Up = false )
+
+
+    //getting inpuyt from DrawingSkill
+    bool _isKeyDown = false;
+    bool _isKeyUp = true;
+
+    public void SetInput( bool keyDown, bool keyUp )
+    {
+        _isKeyDown = keyDown;
+        _isKeyUp = keyUp;
+    }
+
+
+    //-Input and others
+    private bool INTERNAL_GetInput( bool Up = false )
         {
 
-                if (!Up)
-                    return Input.GetKeyDown( MP_INPUT_PC_MeshPaintInput );
-                else
-                    return Input.GetKeyUp( MP_INPUT_PC_MeshPaintInput );
-        }
+        /*
+          if (!Up)
+            {
+            Debug.Log("!Up" + Input.GetKeyDown( MP_INPUT_PC_MeshPaintInput ) );
+              return Input.GetKeyDown( MP_INPUT_PC_MeshPaintInput );
+            }
+        else
+        {
+            Debug.Log( Input.GetKeyUp( MP_INPUT_PC_MeshPaintInput ) );
+              return Input.GetKeyUp( MP_INPUT_PC_MeshPaintInput );
+
+        }*/
+        if (!Up)
+            return _isKeyDown;
+        else
+            return _isKeyUp;
+
+    }
+
+
 
         private void INTERNAL_ChangeBrushSize( float size )
         {

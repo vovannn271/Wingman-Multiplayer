@@ -29,7 +29,6 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Charac
         private GameObject m_GameObject;
         private UltimateCharacterLocomotion m_CharacterLocomotion;
         private InventoryBase m_Inventory;
-
         private bool m_ItemsPickedUp;
 
         /// <summary>

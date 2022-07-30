@@ -75,11 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Categories:
   - {fileID: -2597100621648716336}
-  m_ItemTypes:
-  - {fileID: 8943414323323621557}
-  - {fileID: -7453071337170600897}
-  - {fileID: -2104483390549258929}
-  - {fileID: -6957312076580954481}
+  m_ItemTypes: []
 --- !u!114 &8943414323323621557
 MonoBehaviour:
   m_ObjectHideFlags: 0
