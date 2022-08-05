@@ -537,7 +537,13 @@ using Photon.Realtime;
                  };
 
                 MP_TypeCustom_DRAWStart = true;
+
+            if (internal_currentlyTargetMesh != null)
+            {
+                internal_currentlyTargetMesh.layer = 1;
+
             }
+        }
             else if (MeshPaintMode == MeshPaintModeInternal.Painting)
             {
                 newVertArray = new Vector3[] { internal_p5.position, internal_p6.position, internal_p7.position, internal_p8.position };
@@ -601,9 +607,9 @@ using Photon.Realtime;
 
                 MP_TypeCustom_DRAWStart = false;
 
-                if (MP_TypeRaycast_IgnoreSelfCasting)
-                    internal_currentlyTargetMesh.layer = 2;
-                else
+            //   if (MP_TypeRaycast_IgnoreSelfCasting)
+            //     internal_currentlyTargetMesh.layer = 2;
+            //else
                     internal_currentlyTargetMesh.layer = 0;
             }
 
