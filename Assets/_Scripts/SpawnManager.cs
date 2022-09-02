@@ -10,12 +10,13 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+
 
 public class SpawnManager : SpawnManagerBase
 {
     [Tooltip( "A reference to the character that PUN should spawn. This character must be setup using the PUN Multiplayer Manager." )]
-    [SerializeField] protected GameObject m_Character;
-    public GameObject Character { get { return m_Character; } set { m_Character = value; } }
+    [SerializeField] protected List<GameObject> m_Character;
     [SerializeField] protected GameObject brushPrefab;
     private GameObject _brushGO;
 
@@ -27,14 +28,20 @@ public class SpawnManager : SpawnManagerBase
     public override void Start()
     {
         _brushGO = PhotonNetwork.Instantiate( brushPrefab.name, new Vector3( 0f, 5f, 0f ), Quaternion.identity, 0 );
+
+
+
+        //write down id of chosen hero to player
+        PhotonNetwork.LocalPlayer.CustomProperties.Add("HeroId", 0);
         base.Start();
 
     }
     protected override GameObject GetCharacterPrefab( Player newPlayer )
     {
-        // Return the same character for all instances.
-        return m_Character;
+        int heroId = (int)newPlayer.CustomProperties["HeroId"];
+        return m_Character[heroId];
     }
+
 
 
     public override void SpawnPlayer( Player newPlayer )
@@ -86,6 +93,7 @@ public class SpawnManager : SpawnManagerBase
 
         // Instantiate the player and let the PhotonNetwork know of the new character.
         Player = GameObject.Instantiate( GetCharacterPrefab( newPlayer ), spawnPosition, spawnRotation );
+        
         var photonView = _player.GetComponent<PhotonView>();
 
         photonView.ViewID = PhotonNetwork.AllocateViewID( newPlayer.ActorNumber );
