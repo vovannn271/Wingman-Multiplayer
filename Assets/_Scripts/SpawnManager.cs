@@ -19,11 +19,11 @@ public class SpawnManager : SpawnManagerBase
     [SerializeField] protected List<GameObject> m_Character;
     [SerializeField] protected GameObject brushPrefab;
     private GameObject _brushGO;
-    private int pickedHeroId;
+
 
     private void Awake()
     {
-        pickedHeroId = PickManager.PickedHeroId;
+        
     }
     public override void Start()
     {
@@ -32,7 +32,7 @@ public class SpawnManager : SpawnManagerBase
 
 
         //write down id of chosen hero to player
-        PhotonNetwork.LocalPlayer.CustomProperties.Add("HeroId", pickedHeroId );
+        PhotonNetwork.LocalPlayer.CustomProperties.Add("HeroId", 0);
         base.Start();
 
     }

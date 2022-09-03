@@ -479,7 +479,7 @@ MonoBehaviour:
   m_MaxPlayerCount: 8
   m_ConnectButton: {fileID: 1417776458}
   m_Status: {fileID: 341195036}
-  m_SceneName: HeroSelection
+  m_SceneName: SampleScenePUN
   m_PerspectiveToggle: {fileID: 0}
 --- !u!4 &623534846
 Transform:
