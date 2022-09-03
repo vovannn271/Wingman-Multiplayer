@@ -374,9 +374,7 @@ MonoBehaviour:
   m_SpawnLocationOffset: {x: 2, y: 0, z: 0}
   m_SpawnPointGrouping: -1
   m_InactiveTimeout: 60
-  m_Character:
-  - {fileID: 5003162522626234791, guid: 4c611999dd1a1504d9411ea094b1c5bf, type: 3}
-  - {fileID: 2566017701663192165, guid: d8569d59b47ec014582655525cb91aac, type: 3}
+  m_Character: {fileID: 2566017701663192165, guid: d8569d59b47ec014582655525cb91aac, type: 3}
   brushPrefab: {fileID: 1636921528585751100, guid: 565b3604a8faadd419e8a583d5275c23, type: 3}
 --- !u!1 &346608640
 GameObject:
