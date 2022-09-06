@@ -28,7 +28,14 @@ public class SpawnManager : SpawnManagerBase
     {
         _brushGO = PhotonNetwork.Instantiate( brushPrefab.name, new Vector3( 0f, 5f, 0f ), Quaternion.identity, 0 );
         base.Start();
-
+        
+        foreach (Player i in PhotonNetwork.PlayerList)
+        {
+            if (i != PhotonNetwork.LocalPlayer)
+            {
+                SpawnPlayer( i );
+            }
+        }
     }
     protected override GameObject GetCharacterPrefab( Player newPlayer )
     {
