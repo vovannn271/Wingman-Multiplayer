@@ -43,6 +43,9 @@ namespace Michsky.UI.Freebie
         public UnityEvent onCharacterClick;
         public UnityEvent onCharacterSelection;
 
+
+        
+
         void Start()
         {
             if (useCustomContent == false)

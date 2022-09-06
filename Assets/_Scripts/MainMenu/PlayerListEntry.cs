@@ -14,10 +14,10 @@ using UnityEngine.UI;
 using ExitGames.Client.Photon;
 using Photon.Realtime;
 using Photon.Pun.UtilityScripts;
+using Photon.Pun;
+using Photon.Pun.Demo.Asteroids;
 
-namespace Photon.Pun.Demo.Asteroids
-{
-    public class PlayerListEntry : MonoBehaviour
+public class PlayerListEntry : MonoBehaviour
     {
         [Header("UI References")]
         public Text PlayerNameText;
@@ -94,4 +94,3 @@ namespace Photon.Pun.Demo.Asteroids
             PlayerReadyImage.enabled = playerReady;
         }
     }
-}

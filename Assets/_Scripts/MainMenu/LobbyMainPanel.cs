@@ -34,6 +34,7 @@ using UnityEngine.UI;
 
         [Header("Inside Room Panel")]
         public GameObject InsideRoomPanel;
+        public GameObject PlayerListPanel;
 
         public Button StartGameButton;
         public GameObject PlayerListEntryPrefab;
@@ -120,7 +121,7 @@ using UnityEngine.UI;
             foreach (Player p in PhotonNetwork.PlayerList)
             {
                 GameObject entry = Instantiate(PlayerListEntryPrefab);
-                entry.transform.SetParent(InsideRoomPanel.transform);
+                entry.transform.SetParent(PlayerListPanel.transform);
                 entry.transform.localScale = Vector3.one;
                 entry.GetComponent<PlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
 
@@ -158,7 +159,7 @@ using UnityEngine.UI;
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
             GameObject entry = Instantiate(PlayerListEntryPrefab);
-            entry.transform.SetParent(InsideRoomPanel.transform);
+            entry.transform.SetParent(PlayerListPanel.transform);
             entry.transform.localScale = Vector3.one;
             entry.GetComponent<PlayerListEntry>().Initialize(newPlayer.ActorNumber, newPlayer.NickName);
 

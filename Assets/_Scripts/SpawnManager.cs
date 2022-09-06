@@ -14,8 +14,8 @@ using UnityEngine;
 public class SpawnManager : SpawnManagerBase
 {
     [Tooltip( "A reference to the character that PUN should spawn. This character must be setup using the PUN Multiplayer Manager." )]
-    [SerializeField] protected GameObject m_Character;
-    public GameObject Character { get { return m_Character; } set { m_Character = value; } }
+    [SerializeField] protected List<GameObject> m_Character;
+
     [SerializeField] protected GameObject brushPrefab;
     private GameObject _brushGO;
 
@@ -40,7 +40,8 @@ public class SpawnManager : SpawnManagerBase
     protected override GameObject GetCharacterPrefab( Player newPlayer )
     {
         // Return the same character for all instances.
-        return m_Character;
+        int heroId = (int)newPlayer.CustomProperties["heroId"];
+        return m_Character[heroId];
     }
 
 
