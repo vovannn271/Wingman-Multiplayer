@@ -222,13 +222,19 @@ using Photon.Realtime;
         private void INTERNAL_UPDATE_DrawOnRaycast()
         {
 
-            if (_photonView.IsMine)
-            {
-                location = INTERNAL_GetRaycastPosition();
-                location += MP_TypeRaycast_BrushOffset;
-            }
+        /*  if (_photonView.IsMine)
+          {
+              location = INTERNAL_GetRaycastPosition();
+              location += MP_TypeRaycast_BrushOffset;
+          }*/
+        //Commented as test
+        location = INTERNAL_GetRaycastPosition();
+        location += MP_TypeRaycast_BrushOffset;
 
-            Vector3 rotationdirection = internal_BrushHelper.InverseTransformDirection( location - internal_ppplastposition );
+
+
+
+        Vector3 rotationdirection = internal_BrushHelper.InverseTransformDirection( location - internal_ppplastposition );
 
             internal_BrushHelper.position = location;
 
