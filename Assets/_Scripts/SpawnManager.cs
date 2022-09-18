@@ -39,6 +39,10 @@ public class SpawnManager : SpawnManagerBase
     }
     protected override GameObject GetCharacterPrefab( Player newPlayer )
     {
+        if (newPlayer.CustomProperties["heroId"] == null)
+        {
+            return m_Character[0];
+        }
         // Return the same character for all instances.
         int heroId = (int)newPlayer.CustomProperties["heroId"];
         return m_Character[heroId];
