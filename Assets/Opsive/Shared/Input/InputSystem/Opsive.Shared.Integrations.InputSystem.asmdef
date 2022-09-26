@@ -1,8 +1,8 @@
 {
-    "name": "Opsive.Shared",
-    "rootNamespace": "",
+    "name": "Opsive.Shared.Input.UnityInputSystem",
     "references": [
-        "GUID:75469ad4d38634e559750d17036d5f7c"
+        "Unity.InputSystem",
+        "Opsive.Shared"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,5 +1,5 @@
 {
-    "name": "CharacterInput 1",
+    "name": "CharacterInput",
     "maps": [
         {
             "name": "Gameplay",
@@ -11,7 +11,8 @@
                     "id": "3f8891d3-1ddf-4c95-932b-78931d46f70a",
                     "expectedControlType": "Axis",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Vertical",
@@ -19,7 +20,8 @@
                     "id": "2b8eaacd-e265-46c9-9c9b-a76a7ceda54a",
                     "expectedControlType": "Axis",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Mouse X",
@@ -27,7 +29,8 @@
                     "id": "8b8886fa-b298-4789-bfff-9551be33a5d4",
                     "expectedControlType": "Axis",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Mouse Y",
@@ -35,7 +38,8 @@
                     "id": "46cf35fd-8ad5-4550-b147-a37c20766c6c",
                     "expectedControlType": "Axis",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Fire1",
@@ -43,7 +47,8 @@
                     "id": "2e6b07e4-7c76-4280-9981-37e59afe0402",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Fire2",
@@ -51,7 +56,8 @@
                     "id": "f2ba4b0d-c10c-49cd-95af-6f4f2b1c210f",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Jump",
@@ -59,7 +65,8 @@
                     "id": "bf80cade-3908-4c91-8b5d-2b41f96d6ee1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Reload",
@@ -67,7 +74,8 @@
                     "id": "4d03000e-a711-421b-8fe6-4a0c58afd51b",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Change Speeds",
@@ -75,7 +83,8 @@
                     "id": "ae11e709-a63b-42d8-9dfa-68bfb80d37d6",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Crouch",
@@ -83,7 +92,8 @@
                     "id": "9ba9e0c9-d352-41bb-a6e3-1769ca8da76f",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Action",
@@ -91,7 +101,8 @@
                     "id": "6f3b3740-4829-4925-aa23-b5e6844041e7",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "SecondaryUse",
@@ -99,7 +110,8 @@
                     "id": "8474fdb0-3416-4b95-ac64-1ab0541a41f1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Grenade",
@@ -107,7 +119,8 @@
                     "id": "ff7ac812-620b-46b4-a78b-cf611a295392",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Equip First Item",
@@ -115,7 +128,8 @@
                     "id": "7fcc99d0-a3de-42bd-8bbe-717ff751504b",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Equip Second Item",
@@ -123,7 +137,8 @@
                     "id": "c8e3713f-eac7-4e33-a81e-843fdb931eaf",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Equip Third Item",
@@ -131,7 +146,8 @@
                     "id": "ee802b6b-d993-4c47-aa22-27e3f71c5c8e",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Equip Fourth Item",
@@ -139,7 +155,8 @@
                     "id": "2c9a5d00-bee6-4416-be3c-7e1a6cd7c412",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Equip Fifth Item",
@@ -147,7 +164,8 @@
                     "id": "56845ae8-bb74-45f2-a80c-391bb16bed9d",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Equip Sixth Item",
@@ -155,7 +173,8 @@
                     "id": "51d83d8d-a733-453c-86d3-0a474d3d777e",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Equip Seventh Item",
@@ -163,7 +182,8 @@
                     "id": "23ee03c4-9ab8-4a17-b944-ba0bc53e0b72",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Equip Eighth Item",
@@ -171,7 +191,8 @@
                     "id": "f68cb13f-9ba8-4c96-8b16-5b0c7313b909",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Equip Ninth Item",
@@ -179,7 +200,8 @@
                     "id": "88d392b6-b0fe-4b7e-9591-532912e1d09e",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Equip Next Item",
@@ -187,7 +209,8 @@
                     "id": "9beb1755-6e71-4107-b0bc-fecc75a3c194",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Equip Tenth Item",
@@ -195,7 +218,8 @@
                     "id": "f5755a65-4080-4788-a1b6-4011019f6b39",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Equip Previous Item",
@@ -203,7 +227,8 @@
                     "id": "fe256b77-67cf-44b6-897d-213e36f3d258",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Toggle Item Equip",
@@ -211,7 +236,8 @@
                     "id": "e92f7d6f-c721-46ea-8a1c-22ac013591d4",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Drop",
@@ -219,7 +245,8 @@
                     "id": "5ae366a7-308d-4635-9ba9-3a80de5ffa80",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Toggle Perspective",
@@ -227,7 +254,8 @@
                     "id": "a32e9336-e933-435c-86d9-db27aa17c1a2",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Mouse ScrollWheel",
@@ -235,7 +263,8 @@
                     "id": "433b27f5-b792-44ab-ba79-e7c8c080da4f",
                     "expectedControlType": "Axis",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Lean",
@@ -243,7 +272,8 @@
                     "id": "9ddaf0ab-de61-48f8-b16f-9d9cfd2067bb",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Open Panel",
@@ -251,7 +281,8 @@
                     "id": "ecf3f50f-4040-4702-bed5-6d18596238eb",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Close Panel",
@@ -259,7 +290,8 @@
                     "id": "4bb0aa2b-32fc-4cee-881f-0089e59284fa",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Next",
@@ -267,7 +299,8 @@
                     "id": "c09ec6d6-e353-4bde-a861-c6956be8627e",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Previous",
@@ -275,7 +308,8 @@
                     "id": "3f2b06ce-1d78-43cd-ae3f-a8e880489a7d",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -513,7 +547,7 @@
                 {
                     "name": "",
                     "id": "ab1e61dc-440a-4f70-9398-dd9175d90c92",
-                    "path": "<HID::DragonRise Inc.   Generic   USB  Joystick  >/button3",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -1039,7 +1073,8 @@
                     "id": "e00b285b-2d0e-44ad-acf6-f6d7d17a8641",
                     "expectedControlType": "Quaternion",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "TrackedDevicePosition",
@@ -1047,7 +1082,8 @@
                     "id": "7f08dbb8-bbc9-43fb-a9f7-a9b718154899",
                     "expectedControlType": "Vector3",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "RightClick",
@@ -1055,7 +1091,8 @@
                     "id": "27f7bb34-9e9f-4bc8-acb4-2fd738ae1422",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "MiddleClick",
@@ -1063,7 +1100,8 @@
                     "id": "b0bb90bd-d645-43ac-8a82-5c101aba8cfc",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "ScrollWheel",
@@ -1071,7 +1109,8 @@
                     "id": "ff1366a6-3e9e-4804-8086-a8829f7bf758",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Click",
@@ -1079,7 +1118,8 @@
                     "id": "d8769cb6-5714-4dd8-82c8-1e4b3749d112",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Point",
@@ -1087,7 +1127,8 @@
                     "id": "7d0dcbbb-c998-444e-8497-93f5b883ecd3",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Cancel",
@@ -1095,7 +1136,8 @@
                     "id": "6423d408-e2aa-4add-aecd-b2234406bd22",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Submit",
@@ -1103,7 +1145,8 @@
                     "id": "dfc8041a-02b4-44ed-a688-d2f11d9a6ef1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Navigate",
@@ -1111,7 +1154,8 @@
                     "id": "09a456b2-56e6-48e7-b0f1-551758090963",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
