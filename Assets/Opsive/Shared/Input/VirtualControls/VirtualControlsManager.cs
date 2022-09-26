@@ -75,7 +75,7 @@ namespace Opsive.Shared.Input.VirtualControls
                 }
 
                 // If the virtual controls weren't registered then the virtual input type isn't selected.
-               // activateGameObject = unityInput.RegisterVirtualControlsManager(this);
+                activateGameObject = unityInput.RegisterVirtualControlsManager(this);
             }
 
             m_GameObject.SetActive(activateGameObject);
