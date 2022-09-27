@@ -78,7 +78,7 @@ namespace Opsive.Shared.Input.VirtualControls
                 activateGameObject = unityInput.RegisterVirtualControlsManager(this);
             }
 
-            m_GameObject.SetActive(activateGameObject);
+            m_GameObject.SetActive( activateGameObject );//chagned from activateGameObject to true for mobile
         }
 
         /// <summary>

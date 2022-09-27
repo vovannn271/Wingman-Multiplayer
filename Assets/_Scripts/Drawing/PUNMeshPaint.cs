@@ -453,6 +453,18 @@ using Photon.Realtime;
               return Input.GetKeyUp( MP_INPUT_PC_MeshPaintInput );
 
         }*/
+
+        if (!Up && Input.touchCount > 0)
+        {
+            return true;
+
+        }
+        else if (Up && Input.touchCount == 0)
+            return true;
+        else
+            return false;
+
+
         if (!Up)
             return _isKeyDown;
         else
