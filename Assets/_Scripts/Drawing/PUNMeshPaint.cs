@@ -3,6 +3,7 @@ using UnityEngine;
 using MD_Plugin;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// MD(Mesh Deformation) Component: Mesh Paint
@@ -11,8 +12,12 @@ using Photon.Realtime;
 [AddComponentMenu( MD_Debug.ORGANISATION + MD_Debug.PACKAGENAME + "Mesh Paint" )]
     public class PUNMeshPaint : MonoBehaviour, IPunObservable, IOnEventCallback
 {
-        //MESH DATA
-        [SerializeField] private List<Vector3> internal_vertices = new List<Vector3>();
+        //NETWORKING
+        private PhotonView _photonView;
+
+
+    //MESH DATA
+    [SerializeField] private List<Vector3> internal_vertices = new List<Vector3>();
         [SerializeField] private List<int> internal_triangles = new List<int>();
         [SerializeField] private List<Vector2> internal_uvs = new List<Vector2>();
 
@@ -28,11 +33,7 @@ using Photon.Realtime;
         [SerializeField] private Transform internal_BrushHelper;
         [SerializeField] private Transform internal_BrushRoot;
 
-
-        //NETWORKING
-        private PhotonView _photonView;
-        private DrawingManager _dm;
-        private int currentTargetMeshID;
+        private bool MP_SmoothBrushMovement = false;
 
 
         //PLATFORM
@@ -46,8 +47,8 @@ using Photon.Realtime;
         //BRUSH & MESH SETTINGS
         public float MP_BrushSize = 0.5f;
 
-        public bool MP_SmoothBrushMovement = true;
         public float MP_BSmoothMSpeed = 10f;
+        
         public bool MP_SmoothBrushRotation = true;
         public float MP_BSmoothRSpeed = 20;
 
@@ -96,7 +97,6 @@ using Photon.Realtime;
         private void Awake()
         {
             _photonView = gameObject.GetComponent<PhotonView>();
-            _dm = FindObjectOfType<DrawingManager>();
 
             if (!internal_BrushHelper)
                 internal_BrushHelper = new GameObject( "MD_MESHPAINT_BrushHelper" ).transform;
@@ -174,7 +174,13 @@ using Photon.Realtime;
         private void Update()
         {
 
-            INTERNAL_UPDATE_DrawOnRaycast();
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+        
+
+           INTERNAL_UPDATE_DrawOnRaycast();
               
 
 
@@ -440,31 +446,30 @@ using Photon.Realtime;
     //-Input and others
     private bool INTERNAL_GetInput( bool Up = false )
         {
-
-        /*
-          if (!Up)
-            {
-            Debug.Log("!Up" + Input.GetKeyDown( MP_INPUT_PC_MeshPaintInput ) );
-              return Input.GetKeyDown( MP_INPUT_PC_MeshPaintInput );
-            }
-        else
+        
+      /*  if (EventSystem.current.IsPointerOverGameObject())
         {
-            Debug.Log( Input.GetKeyUp( MP_INPUT_PC_MeshPaintInput ) );
-              return Input.GetKeyUp( MP_INPUT_PC_MeshPaintInput );
-
+            return false;
         }*/
 
         if (!Up && Input.touchCount > 0)
         {
+            MP_SmoothBrushMovement = true;
             return true;
-
         }
         else if (Up && Input.touchCount == 0)
+        {
+            MP_SmoothBrushMovement = false;
             return true;
+        }
         else
+        {
             return false;
+        }
 
 
+
+        //old code to work with Drawing Skill
         if (!Up)
             return _isKeyDown;
         else
