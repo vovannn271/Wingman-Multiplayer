@@ -174,7 +174,7 @@ using UnityEngine.EventSystems;
         private void Update()
         {
 
-            if (IsPointerOverUIObject())
+            if (DrawingIsBlocked())
             {
                 return;
             }
@@ -647,8 +647,15 @@ using UnityEngine.EventSystems;
             }
         }
 
-        private bool IsPointerOverUIObject()
+        private bool DrawingIsBlocked()
         {
+
+
+            if (Input.touchCount > 1)//to prevent drawing while controlling character
+            {
+                return true;
+            }
+
             PointerEventData eventDataCurrentPosition = new PointerEventData( EventSystem.current );
             eventDataCurrentPosition.position = new Vector2( Input.mousePosition.x, Input.mousePosition.y );
             List<RaycastResult> results = new List<RaycastResult>();
