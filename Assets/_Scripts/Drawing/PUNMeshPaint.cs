@@ -174,13 +174,13 @@ using UnityEngine.EventSystems;
         private void Update()
         {
 
-        if (EventSystem.current.IsPointerOverGameObject())
-        {
-            return;
-        }
+            if (IsPointerOverUIObject())
+            {
+                return;
+            }
         
 
-           INTERNAL_UPDATE_DrawOnRaycast();
+            INTERNAL_UPDATE_DrawOnRaycast();
               
 
 
@@ -228,12 +228,6 @@ using UnityEngine.EventSystems;
         private void INTERNAL_UPDATE_DrawOnRaycast()
         {
 
-        /*  if (_photonView.IsMine)
-          {
-              location = INTERNAL_GetRaycastPosition();
-              location += MP_TypeRaycast_BrushOffset;
-          }*/
-        //Commented as test
         location = INTERNAL_GetRaycastPosition();
         location += MP_TypeRaycast_BrushOffset;
 
@@ -653,9 +647,17 @@ using UnityEngine.EventSystems;
             }
         }
 
-        #endregion
+        private bool IsPointerOverUIObject()
+        {
+            PointerEventData eventDataCurrentPosition = new PointerEventData( EventSystem.current );
+            eventDataCurrentPosition.position = new Vector2( Input.mousePosition.x, Input.mousePosition.y );
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll( eventDataCurrentPosition, results );
+            return results.Count > 0;
+        }
+    #endregion
 
-        public enum MeshPaintModeInternal { StartPaint, Painting, EndPaint };
+    public enum MeshPaintModeInternal { StartPaint, Painting, EndPaint };
         public MeshPaintModeInternal MeshPaintMode;
 
         #region PUBLIC FUNCTIONS
