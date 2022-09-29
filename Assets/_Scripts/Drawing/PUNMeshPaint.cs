@@ -338,7 +338,7 @@ using UnityEngine.EventSystems;
             }
         }
 
-        Debug.LogError( "Failed to allocate a ViewId for drawing" );
+        Debug.Log( "Failed to allocate a ViewId for drawing" );
         return -1;
     }
 
@@ -693,20 +693,16 @@ using UnityEngine.EventSystems;
         /// </summary>
         public void PUBLIC_PaintMesh( Vector3 Position, MeshPaintModeInternal MeshPaintMode )
         {
-        /* Vova comment
+        /* no distance limitation
             if (MP_DistanceLimitation)
             {
                 if (Vector3.Distance( Position, internal_ppplastpress ) < MP_MinDistanceLimit)
                     return;
-            }*/
-
-            if (UnityEngine.EventSystems.EventSystem.current && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
-            {
-              Debug.Log( "UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() == false" );
-               return;
             }
+        */
+        
 
-            INTERNAL_ChangeBrushSize( MP_BrushSize );
+        INTERNAL_ChangeBrushSize( MP_BrushSize );
 
            
             INTERNAL_Generation_Cube( Position, MeshPaintMode );
