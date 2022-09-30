@@ -7,7 +7,7 @@ public class OfflineMode : MonoBehaviour
 {
     private void Awake()
     {
-        if (Application.isEditor)
+        if (!Application.isEditor)
         {
             gameObject.SetActive( false );
         }
