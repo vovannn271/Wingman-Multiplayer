@@ -174,13 +174,16 @@ using UnityEngine.EventSystems;
         private void Update()
         {
 
+         if ( _photonView.IsMine)
+        {
             if (DrawingIsBlocked())
             {
                 return;
             }
-        
+        }
 
-            INTERNAL_UPDATE_DrawOnRaycast();
+
+        INTERNAL_UPDATE_DrawOnRaycast();
               
 
 
