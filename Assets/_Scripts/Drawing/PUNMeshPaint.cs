@@ -221,16 +221,17 @@ using UnityEngine.EventSystems;
 
 
 
-    //Vova made it outside
+    //made it outside
          Vector3 location;
      
     //---TYPE _ RAYCAST
         private void INTERNAL_UPDATE_DrawOnRaycast()
         {
-
-        location = INTERNAL_GetRaycastPosition();
-        location += MP_TypeRaycast_BrushOffset;
-
+            if (_photonView.IsMine)
+            {
+                location = INTERNAL_GetRaycastPosition();
+                location += MP_TypeRaycast_BrushOffset;
+            }
 
 
 
