@@ -173,14 +173,16 @@ using UnityEngine.EventSystems;
         Quaternion internal_ppplastrotation;
         private void Update()
         {
-
-         if ( _photonView.IsMine)
+     //   bool flag =
+         if ( _photonView.IsMine && Input.touches.Length > 0)
         {
             if (DrawingIsBlocked())
             {
                 return;
             }
         }
+
+
 
 
         INTERNAL_UPDATE_DrawOnRaycast();
@@ -387,10 +389,32 @@ using UnityEngine.EventSystems;
 
             Vector3 result = Vector3.zero;
             Ray r = new Ray();
-            if (MP_TypeRaycast_RaycastFromCursor)
-                r = c.ScreenPointToRay( Input.mousePosition );
-            else
-                r = new Ray( MP_TypeRaycast_RaycastOriginFORWARD.position, MP_TypeRaycast_RaycastOriginFORWARD.forward );
+
+        if ( Input.touchCount == 0)
+        {
+            return Vector3.zero;
+        }
+        Touch currentTouch = Input.GetTouch(0);
+        bool touchWasFound = false;
+        foreach (Touch touch in Input.touches)
+        {
+            currentTouch = touch;
+            int id = touch.fingerId;
+            if (!EventSystem.current.IsPointerOverGameObject( id ))
+            {
+                touchWasFound = true;
+                break;
+            }
+        }
+
+        if ( !touchWasFound )
+        {
+            return Vector3.zero;
+        }
+
+
+            r = c.ScreenPointToRay( currentTouch.position );
+       
 
             RaycastHit hit = new RaycastHit();
 
@@ -445,10 +469,7 @@ using UnityEngine.EventSystems;
     private bool INTERNAL_GetInput( bool Up = false )
         {
         
-      /*  if (EventSystem.current.IsPointerOverGameObject())
-        {
-            return false;
-        }*/
+
 
         if (!Up && Input.touchCount > 0)
         {
@@ -654,8 +675,39 @@ using UnityEngine.EventSystems;
         private bool DrawingIsBlocked()
         {
 
+            int curSize = Input.touches.Length;
+            int uiTouchCounter = 0;
 
-            if (Input.touchCount > 1)//to prevent drawing while controlling character
+
+            if ( curSize == 1 && Input.touches[0].phase == TouchPhase.Ended)
+            {
+                return true;
+            }
+
+            foreach (Touch touch in Input.touches)
+            {
+                int id = touch.fingerId;
+                if (EventSystem.current.IsPointerOverGameObject( id ))
+                { 
+                    uiTouchCounter++;
+                }
+            }
+            if (uiTouchCounter != 0 && uiTouchCounter == curSize)
+            {
+                return true;
+            }
+
+
+
+
+        Debug.Log( "drawing is not blocked: " + Input.touches[0].phase);
+        return false;
+
+
+        
+        // Code with max 1 touch for drawing
+            /*
+        if (Input.touchCount > 1)//to prevent drawing while controlling character
             {
                 return true;
             }
@@ -664,7 +716,7 @@ using UnityEngine.EventSystems;
             eventDataCurrentPosition.position = new Vector2( Input.mousePosition.x, Input.mousePosition.y );
             List<RaycastResult> results = new List<RaycastResult>();
             EventSystem.current.RaycastAll( eventDataCurrentPosition, results );
-            return results.Count > 0;
+            return results.Count > 0; */
         }
     #endregion
 
