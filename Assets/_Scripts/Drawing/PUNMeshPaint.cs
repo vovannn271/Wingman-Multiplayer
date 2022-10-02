@@ -34,6 +34,7 @@ using UnityEngine.EventSystems;
         [SerializeField] private Transform internal_BrushRoot;
 
         private bool MP_SmoothBrushMovement = false;
+        private Camera _camera;
 
 
         //PLATFORM
@@ -97,6 +98,8 @@ using UnityEngine.EventSystems;
         private void Awake()
         {
             _photonView = gameObject.GetComponent<PhotonView>();
+
+            _camera = Camera.main;
 
             if (!internal_BrushHelper)
                 internal_BrushHelper = new GameObject( "MD_MESHPAINT_BrushHelper" ).transform;
@@ -173,15 +176,21 @@ using UnityEngine.EventSystems;
         Quaternion internal_ppplastrotation;
         private void Update()
         {
-     //   bool flag =
          if ( _photonView.IsMine && Input.touches.Length > 0)
         {
             if (DrawingIsBlocked())
             {
+                if (MP_TypeCustom_DRAW )//finishing the drawing
+                {
+                    PUBLIC_PaintMesh( internal_BrushRoot.position, MeshPaintModeInternal.EndPaint );
+                    MP_SmoothBrushMovement = false;
+                    MP_TypeCustom_DRAW = false;
+                    SetUpMineDrawing();
+                }
+                
                 return;
             }
         }
-
 
 
 
@@ -274,18 +283,16 @@ using UnityEngine.EventSystems;
                     if (INTERNAL_GetInput())
                     {
                         MP_TypeCustom_DRAW = true;
-                      //  _photonView.RPC( "AddTargetMeshToManager", RpcTarget.All );
                     }
                 }
                 else
                 {
                     if (INTERNAL_GetInput( true ))
-                {
+                    {
                         MP_TypeCustom_DRAW = false;
-
                         SetUpMineDrawing();
+                    }
                 }
-            }
             }
 
             
@@ -383,8 +390,7 @@ using UnityEngine.EventSystems;
 
         private Vector3 INTERNAL_GetRaycastPosition()
         {
-            Camera c;
-            c = Camera.main;
+
 
 
             Vector3 result = Vector3.zero;
@@ -394,6 +400,8 @@ using UnityEngine.EventSystems;
         {
             return Vector3.zero;
         }
+
+
         Touch currentTouch = Input.GetTouch(0);
         bool touchWasFound = false;
         foreach (Touch touch in Input.touches)
@@ -413,7 +421,7 @@ using UnityEngine.EventSystems;
         }
 
 
-            r = c.ScreenPointToRay( currentTouch.position );
+            r = _camera.ScreenPointToRay( currentTouch.position );
        
 
             RaycastHit hit = new RaycastHit();
