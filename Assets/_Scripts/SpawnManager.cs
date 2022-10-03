@@ -19,11 +19,6 @@ public class SpawnManager : SpawnManagerBase
     [SerializeField] protected GameObject brushPrefab;
     private GameObject _brushGO;
 
-
-    private void Awake()
-    {
-        
-    }
     public override void Start()
     {
         _brushGO = PhotonNetwork.Instantiate( brushPrefab.name, new Vector3( 0f, 5f, 0f ), Quaternion.identity, 0 );

@@ -34,8 +34,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236772237692339937}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.18, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2546535929026966707}
   m_Father: {fileID: 0}
@@ -129,8 +130,8 @@ MonoBehaviour:
     m_Default: 1
   m_PositioningMode: 1
   m_Grouping: -1
-  m_MinRespawnTime: 2
-  m_MaxRespawnTime: 3
+  m_MinRespawnTime: 20
+  m_MaxRespawnTime: 30
   m_ScheduleRespawnOnDeath: 1
   m_ScheduleRespawnOnDisable: 1
   m_RespawnAudioClipSet:
@@ -227,15 +228,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1710877083454368115, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 6.26e-43
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1710877083454368115, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 1.5244914e-21
+      value: 1.1616164e+25
       objectReference: {fileID: 0}
     - target: {fileID: 1710877083454368115, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 6.26e-43
+      value: 6.01e-43
       objectReference: {fileID: 0}
     - target: {fileID: 1710877084965233908, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
       propertyPath: m_Materials.Array.size
