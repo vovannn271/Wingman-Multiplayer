@@ -8,7 +8,9 @@ using Photon.Pun;
 public class DrawingSkill : Ability
 {
 
-    public PUNMeshPaint Brush { get { return _brush; }  set { _brush = value; } }
+    public PUNMeshPaint Brush { get { return _brush; }  set { _brush = value;
+            _brush.SetDrawingAbilityValues( this );
+        } }
     public PhotonView CurrentPlayerPhotonView { get; set; }
     [SerializeField] private float _decreaseAmount = 0.2f;
     
@@ -28,6 +30,12 @@ public class DrawingSkill : Ability
         _drawingMana = _am.GetAttribute("DrawingMana");
     }
 
+    public override void Start()
+    {
+        base.Start();
+        
+    }
+
     public override bool CanStartAbility()
     {
         if ( CurrentPlayerPhotonView == null || !base.CanStartAbility())
@@ -40,14 +48,14 @@ public class DrawingSkill : Ability
 
         
     }
-
+    /*
     protected override void AbilityStarted()
     {
         base.AbilityStarted();
 
-        _brush.SetInput( true, false );
+       // _brush.SetInput( true, false );
     }
-
+    */
     protected override void AbilityStopped( bool force )
     {
         base.AbilityStopped( force );
@@ -59,10 +67,10 @@ public class DrawingSkill : Ability
 
         if ( CurrentPlayerPhotonView.IsMine)
         {
-            _brush.SetInput( false, true );
+            _brush.OnDrawingFinished();
         }
     }
-
+    
 
 
 
@@ -74,7 +82,7 @@ public class DrawingSkill : Ability
     public override void Update()
     {
         base.Update();
-        if ( this.Enabled)
+        if ( this.IsActive)
         {
             _drawingMana.Value -= _decreaseAmount;
 

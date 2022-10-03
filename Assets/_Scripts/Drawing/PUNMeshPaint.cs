@@ -4,6 +4,7 @@ using MD_Plugin;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.EventSystems;
+using Opsive.UltimateCharacterController.Character;
 
 /// <summary>
 /// MD(Mesh Deformation) Component: Mesh Paint
@@ -37,6 +38,8 @@ using UnityEngine.EventSystems;
         private Camera _camera;
 
 
+        //For Skill
+        private DrawingSkill _drawingSkill;
         //PLATFORM
         public enum MP_PlatformInternal { PC, VR, Mobile };
         public MP_PlatformInternal MP_Platform = MP_PlatformInternal.PC;
@@ -95,6 +98,7 @@ using UnityEngine.EventSystems;
 
         public bool MP_RefreshMeshCollider = true;
 
+        
         private void Awake()
         {
             _photonView = gameObject.GetComponent<PhotonView>();
@@ -167,7 +171,12 @@ using UnityEngine.EventSystems;
                 MD_Debug.Debug( this, "At least one material must be assigned", MD_Debug.DebugType.Error );
             else if (!MP_MaterialSlots && MP_Color_AvailableColors.Length == 0)
                 MD_Debug.Debug( this, "At least one color must be added", MD_Debug.DebugType.Error );
+           
+        }
 
+        public void SetDrawingAbilityValues(  DrawingSkill skill )
+        {
+            _drawingSkill = skill;
         }
 
         GameObject internal_currentlyTargetMesh;
@@ -180,12 +189,15 @@ using UnityEngine.EventSystems;
         {
             if (DrawingIsBlocked())
             {
+                Debug.Log( "ability is stopped" );
+                if (_drawingSkill.IsActive)
+                {
+                    _drawingSkill.StopAbility();
+                }
+
                 if (MP_TypeCustom_DRAW )//finishing the drawing
                 {
-                    PUBLIC_PaintMesh( internal_BrushRoot.position, MeshPaintModeInternal.EndPaint );
-                    MP_SmoothBrushMovement = false;
-                    MP_TypeCustom_DRAW = false;
-                    SetUpMineDrawing();
+                 //   OnDrawingFinished();
                 }
                 
                 return;
@@ -229,6 +241,16 @@ using UnityEngine.EventSystems;
                 }
             }
         }
+
+
+    public void OnDrawingFinished()
+    {
+        PUBLIC_PaintMesh( internal_BrushRoot.position, MeshPaintModeInternal.EndPaint );
+        MP_SmoothBrushMovement = false;
+        MP_TypeCustom_DRAW = false;
+        SetUpMineDrawing();
+    }
+
 
     #region INTERNAL FUNCTIONS
 
@@ -290,7 +312,7 @@ using UnityEngine.EventSystems;
                     if (INTERNAL_GetInput( true ))
                     {
                         MP_TypeCustom_DRAW = false;
-                        SetUpMineDrawing();
+                        //SetUpMineDrawing();
                     }
                 }
             }
@@ -461,18 +483,6 @@ using UnityEngine.EventSystems;
         }
 
 
-
-    //getting inpuyt from DrawingSkill
-    bool _isKeyDown = false;
-    bool _isKeyUp = true;
-
-    public void SetInput( bool keyDown, bool keyUp )
-    {
-        _isKeyDown = keyDown;
-        _isKeyUp = keyUp;
-    }
-
-
     //-Input and others
     private bool INTERNAL_GetInput( bool Up = false )
         {
@@ -481,27 +491,30 @@ using UnityEngine.EventSystems;
 
         if (!Up && Input.touchCount > 0)
         {
-            MP_SmoothBrushMovement = true;
-            return true;
+            if (_drawingSkill.CanStartAbility())
+            {
+                if ( !_drawingSkill.IsActive)
+                {
+                    _drawingSkill.StartAbility();
+                }
+                MP_SmoothBrushMovement = true;
+                return true;
+            }
+            return false;
         }
         else if (Up && Input.touchCount == 0)
         {
-            MP_SmoothBrushMovement = false;
-            return true;
+
+            //_characterLocomotion.TryStopAbility( _drawingSkill );
+                _drawingSkill.StopAbility();
+                MP_SmoothBrushMovement = false;
+                return true;
+            
         }
         else
         {
             return false;
         }
-
-
-
-        //old code to work with Drawing Skill
-        if (!Up)
-            return _isKeyDown;
-        else
-            return _isKeyUp;
-
     }
 
 
@@ -708,7 +721,7 @@ using UnityEngine.EventSystems;
 
 
 
-        Debug.Log( "drawing is not blocked: " + Input.touches[0].phase);
+        //Debug.Log( "drawing is not blocked: " + Input.touches[0].phase);
         return false;
 
 
