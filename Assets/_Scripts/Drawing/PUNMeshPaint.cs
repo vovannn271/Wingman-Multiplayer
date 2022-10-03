@@ -687,19 +687,19 @@ using UnityEngine.EventSystems;
             int uiTouchCounter = 0;
 
 
-            if ( curSize == 1 && Input.touches[0].phase == TouchPhase.Ended)
-            {
-                return true;
-            }
-
             foreach (Touch touch in Input.touches)
             {
                 int id = touch.fingerId;
                 if (EventSystem.current.IsPointerOverGameObject( id ))
-                { 
+                {                 
+                    uiTouchCounter++;
+                }
+                else if (touch.phase == TouchPhase.Ended)
+                {
                     uiTouchCounter++;
                 }
             }
+
             if (uiTouchCounter != 0 && uiTouchCounter == curSize)
             {
                 return true;
