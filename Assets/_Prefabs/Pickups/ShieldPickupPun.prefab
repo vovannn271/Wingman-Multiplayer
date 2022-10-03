@@ -62,7 +62,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0.01, y: -0.08, z: 0}
+  m_Center: {x: 0.01, y: 0.8, z: 0}
 --- !u!114 &2439435299043320934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236772237692339937}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69bf5fc13e796d141b5f806bad87f704, type: 3}
   m_Name: 
@@ -252,7 +252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4791549004513948231, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4791549004513948231, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -260,7 +260,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4791549004513948231, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9999966
       objectReference: {fileID: 0}
     - target: {fileID: 4791549004513948231, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
       propertyPath: m_LocalRotation.x
@@ -268,7 +268,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4791549004513948231, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.0026179885
       objectReference: {fileID: 0}
     - target: {fileID: 4791549004513948231, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
       propertyPath: m_LocalRotation.z
@@ -280,7 +280,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4791549004513948231, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4791549004513948231, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
