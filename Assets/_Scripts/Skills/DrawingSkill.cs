@@ -7,19 +7,22 @@ using Photon.Pun;
 
 public class DrawingSkill : Ability
 {
-
-    public PUNMeshPaint Brush { get { return _brush; }  set { _brush = value;
-            _brush.SetDrawingAbilityValues( this );
-        } }
-    public PhotonView CurrentPlayerPhotonView { get; set; }
-    [SerializeField] private float _decreaseAmount = 0.2f;
     
-
     private AttributeManager _am;
     private Attribute _drawingMana;
     private PUNMeshPaint _brush;
+    [SerializeField] private string _attributeName = "DrawingInk";
 
-
+    public PUNMeshPaint Brush
+    {
+        get { return _brush; }
+        set {
+            _brush = value;
+            _brush.SetDrawingAbilityValues( this );
+        }
+    }
+    public PhotonView CurrentPlayerPhotonView { get; set; }
+    [SerializeField] private float _decreaseAmount = 0.2f;
 
     public override bool IsConcurrent { get { return true; } }
 
@@ -27,7 +30,7 @@ public class DrawingSkill : Ability
     {
         base.Awake();
         _am = this.GetComponent<AttributeManager>();
-        _drawingMana = _am.GetAttribute("DrawingMana");
+        _drawingMana = _am.GetAttribute( _attributeName );
     }
 
     public override void Start()

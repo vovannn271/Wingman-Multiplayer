@@ -189,17 +189,10 @@ using Opsive.UltimateCharacterController.Character;
         {
             if (DrawingIsBlocked())
             {
-                Debug.Log( "ability is stopped" );
                 if (_drawingSkill.IsActive)
                 {
                     _drawingSkill.StopAbility();
                 }
-
-                if (MP_TypeCustom_DRAW )//finishing the drawing
-                {
-                 //   OnDrawingFinished();
-                }
-                
                 return;
             }
         }

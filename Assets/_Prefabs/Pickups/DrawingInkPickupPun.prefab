@@ -12,15 +12,14 @@ GameObject:
   - component: {fileID: 5389179867386817158}
   - component: {fileID: 8626101904452671913}
   - component: {fileID: 2439435299043320934}
-  - component: {fileID: 3052243670568075576}
-  - component: {fileID: 2648830872121828343}
+  - component: {fileID: 4912548466606070578}
   - component: {fileID: 3214595248493604363}
   - component: {fileID: 4792508173493605135}
   - component: {fileID: 3567815958934137922}
   - component: {fileID: 4650859525404042836}
   - component: {fileID: 4905816849144627883}
   m_Layer: 0
-  m_Name: ShieldPickupPun
+  m_Name: DrawingInkPickupPun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,7 +88,7 @@ MonoBehaviour:
     m_AutoUpdateStartDelay: 1
     m_AutoUpdateInterval: 0.1
     m_AutoUpdateAmount: 0.2
---- !u!114 &3052243670568075576
+--- !u!114 &4912548466606070578
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,7 +97,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8236772237692339937}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63230575377030b4f87438c434bac20d, type: 3}
+  m_Script: {fileID: 11500000, guid: e10034ced5417344898d02bdf1e9705d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_TriggerEnableDelay: 0
@@ -109,37 +108,9 @@ MonoBehaviour:
     m_AudioClips: []
   m_PickupMessageText: 
   m_PickupMessageIcon: {fileID: 0}
-  m_ShieldAmount: 40
-  m_AlwaysPickup: 0
---- !u!114 &2648830872121828343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8236772237692339937}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69bf5fc13e796d141b5f806bad87f704, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_States:
-  - m_Name: Default
-    m_Preset: {fileID: 0}
-    m_BlockList: []
-    m_Default: 1
-  m_PositioningMode: 1
-  m_Grouping: -1
-  m_MinRespawnTime: 20
-  m_MaxRespawnTime: 30
-  m_ScheduleRespawnOnDeath: 1
-  m_ScheduleRespawnOnDisable: 1
-  m_RespawnAudioClipSet:
-    m_AudioConfig: {fileID: 0}
-    m_AudioClips: []
-  m_OnRespawnEvent:
-    m_PersistentCalls:
-      m_Calls: []
+  attributeName: DrawingInk
+  _inkAmount: 40
+  m_AlwaysPickup: 1
 --- !u!114 &3214595248493604363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,7 +195,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1710877083454368115, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 7.8e-44
+      value: 2.73e-43
       objectReference: {fileID: 0}
     - target: {fileID: 1710877083454368115, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
       propertyPath: m_BoundingSphereOverride.x
@@ -232,31 +203,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1710877083454368115, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 7e-45
+      value: 1.1616164e+25
       objectReference: {fileID: 0}
     - target: {fileID: 1710877083454368115, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 7.018e-41
+      value: 6.01e-43
       objectReference: {fileID: 0}
     - target: {fileID: 1710877084965233908, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3557673718323500016, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
-      propertyPath: m_IsActive
+    - target: {fileID: 3557673718323500031, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3557673718323500031, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3557673718323500031, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4791549004513948230, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4791549004513948230, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 1
+      value: 0.6826091
       objectReference: {fileID: 0}
     - target: {fileID: 4791549004513948230, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 1
+      value: 0.9811321
       objectReference: {fileID: 0}
     - target: {fileID: 4791549004513948231, guid: f09ffa69d319ab044b247eeafbc8a4a1, type: 3}
       propertyPath: m_RootOrder
