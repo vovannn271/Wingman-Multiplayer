@@ -402,11 +402,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NetworkSpawnableObjects:
   - {fileID: 7207166533229560728, guid: bbbf481524b9f5b48863f0b83a789251, type: 3}
-  - {fileID: 9208466646817785792, guid: eaf96356ebe719542a738bfd4e00c68b, type: 3}
   - {fileID: 8236772237692339937, guid: 9350a34b6bf790447a930a9856a67982, type: 3}
   - {fileID: 8236772237692339937, guid: cbf1d2d19d365c849b83bc7c31336e80, type: 3}
-  - {fileID: 6632198514663776466, guid: 24f47ca68a7f8e34480ac6582fa0ff47, type: 3}
-  - {fileID: 5490221094549253126, guid: 85d321755e8a85847beb01a0a7246f92, type: 3}
 --- !u!4 &323542518
 Transform:
   m_ObjectHideFlags: 0
