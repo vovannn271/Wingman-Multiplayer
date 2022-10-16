@@ -184,7 +184,10 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Charac
                     dirtyFlag |= (byte)TransformDirtyFlags.LookPosition;
                     m_NetworkLookPosition = lookPosition;
                 }
-                var lookDirection = m_LookSource.LookDirection(this.transform.position,true, -1, true, true);//VOva changed here
+                var lookDirection = m_LookSource.LookDirection( m_LookSource.LookPosition( false ), true, -1, false, false );//best
+                //var lookDirection = m_LookSource.LookDirection(this.transform.position,true, -1, false, false);//good
+
+
                 if (m_NetworkLookDirection != lookDirection) {
                     dirtyFlag |= (byte)TransformDirtyFlags.LookDirection;
                     m_NetworkLookDirection = lookDirection;
