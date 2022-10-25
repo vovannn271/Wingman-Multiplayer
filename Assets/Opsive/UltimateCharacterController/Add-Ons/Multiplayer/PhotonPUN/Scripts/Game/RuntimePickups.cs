@@ -36,6 +36,7 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
         /// <param name="character">The character that the player controls.</param>
         private void OnPlayerEnteredRoom(Player player, GameObject character)
         {
+
             var inventory = character.GetCachedComponent<InventoryBase>();
             if (inventory == null) {
                 return;

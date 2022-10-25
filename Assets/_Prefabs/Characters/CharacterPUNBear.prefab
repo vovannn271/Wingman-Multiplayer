@@ -2195,6 +2195,7 @@ GameObject:
   - component: {fileID: 443541727594073903}
   - component: {fileID: 7786665444721362968}
   - component: {fileID: 5207241662168773872}
+  - component: {fileID: 2863453813916871767}
   m_Layer: 31
   m_Name: CharacterPUNBear
   m_TagString: Player
@@ -3176,6 +3177,18 @@ MonoBehaviour:
   maxPositionDifferenceForVelocitySyncing: 10
   ownerChangeIndicator: 1
   receivedStatesCounter: 0
+--- !u!114 &2863453813916871767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5003162522626234791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 481197f12fff3324eb84c59d4c9773e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5003162522690823379
 GameObject:
   m_ObjectHideFlags: 0

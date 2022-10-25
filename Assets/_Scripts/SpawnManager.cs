@@ -136,9 +136,7 @@ public class SpawnManager : SpawnManagerBase
                 drawingSkill.Brush = _brushGO.GetComponent<PUNMeshPaint>();
                 drawingSkill.CurrentPlayerPhotonView = photonView;
 
-
-
-
+                //Move everything in this else to Event Listener in Brush
             }
 
             AddPhotonView( photonView );
