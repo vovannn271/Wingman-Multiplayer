@@ -1,18 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using Opsive.Shared.Events;
+using Opsive.Shared.Game;
 using UnityEngine;
 
 public class KillFeedUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] GameObject killListingPrefab;
+    [SerializeField] Sprite[] howImages;//TODO
+
+    private void Start()
     {
-        
+        EventHandler.RegisterEvent<string, string>( "OnKill", OnKill);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnKill(string killer, string killed)
     {
-        
+        Debug.Log( "Registered Event" );
+        GameObject temp = ObjectPool.Instantiate( killListingPrefab, transform);
+        temp.transform.SetSiblingIndex( 0 );
+        KillListing tempListing = temp.GetComponent<KillListing>();
+        tempListing.SetNames( killer, killed );
+    }
+
+    private void OnDestroy()
+    {
+        EventHandler.UnregisterEvent<string, string>( "OnKill", OnKill );
     }
 }
