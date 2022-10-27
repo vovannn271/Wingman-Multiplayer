@@ -33,7 +33,7 @@ public class PunKillFeedInfo : MonoBehaviour
                 return;
             }
 
-            Debug.Log( "PlayerEnteredTheRoom " + player.NickName );
+            //Debug.Log( "PlayerEnteredTheRoom " + player.NickName );
             InitializeLocalPlayerForKillfeed( player, character );
         }
     }

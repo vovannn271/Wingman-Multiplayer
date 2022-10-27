@@ -51,14 +51,7 @@ public class DrawingSkill : Ability
 
         
     }
-    /*
-    protected override void AbilityStarted()
-    {
-        base.AbilityStarted();
 
-       // _brush.SetInput( true, false );
-    }
-    */
     protected override void AbilityStopped( bool force )
     {
         base.AbilityStopped( force );
@@ -94,5 +87,11 @@ public class DrawingSkill : Ability
                 this.StopAbility( true );
             }
         }
+    }
+
+    public void SetDrawingColor( int colorInt )
+    {
+        int colorIndex = colorInt % _brush.MP_Color_AvailableColors.Length;
+        _brush.MP_CurrentlySelectedAppearanceSlot = colorIndex;
     }
 }

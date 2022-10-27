@@ -21,7 +21,8 @@ public class SpawnManager : SpawnManagerBase
 
     public override void Start()
     {
-        _brushGO = PhotonNetwork.Instantiate( brushPrefab.name, new Vector3( 0f, 5f, 0f ), Quaternion.identity, 0 );
+        InstantiateBrush();
+
         base.Start();
         
         foreach (Player i in PhotonNetwork.PlayerList)
@@ -130,13 +131,8 @@ public class SpawnManager : SpawnManagerBase
             }
             else
             {
-                //Getting brush for drawing skill for first, main Player
                 UltimateCharacterLocomotion characterLocomotion = _player.GetCachedComponent<UltimateCharacterLocomotion>();
-                DrawingSkill drawingSkill = characterLocomotion.GetAbility<DrawingSkill>();
-                drawingSkill.Brush = _brushGO.GetComponent<PUNMeshPaint>();
-                drawingSkill.CurrentPlayerPhotonView = photonView;
-
-                //Move everything in this else to Event Listener in Brush
+                SetupMultiplayerDrawing( characterLocomotion, photonView );
             }
 
             AddPhotonView( photonView );
@@ -192,10 +188,8 @@ public class SpawnManager : SpawnManagerBase
                     m_RaiseEventOptions.TargetActors = new int[] { PhotonNetwork.MasterClient.ActorNumber };
                     PhotonNetwork.RaiseEvent( PhotonEventIDs.RemotePlayerInstantiationComplete, photonView.Owner.ActorNumber, m_RaiseEventOptions, m_ReliableSendOption );
 
-                    //setting up Drawing Skill for spawned character
-                    DrawingSkill drawingSkill = characterLocomotion.GetAbility<DrawingSkill>();
-                    drawingSkill.Brush = _brushGO.GetComponent<PUNMeshPaint>();
-                    drawingSkill.CurrentPlayerPhotonView = photonView;
+
+                    SetupMultiplayerDrawing( characterLocomotion, photonView );
                 }
                 else
                 {
@@ -219,6 +213,23 @@ public class SpawnManager : SpawnManagerBase
             }
         }
 
-
     }
+
+    private void SetupMultiplayerDrawing( UltimateCharacterLocomotion characterLocomotion, PhotonView pView )
+    {
+        DrawingSkill drawingSkill = characterLocomotion.GetAbility<DrawingSkill>();
+        drawingSkill.Brush = _brushGO.GetComponent<PUNMeshPaint>();
+        drawingSkill.CurrentPlayerPhotonView = pView;
+        //drawingSkill.SetDrawingColor( pView.Owner.ActorNumber - 1 );//-1 because actors starting from 1
+    }
+
+    private void InstantiateBrush()
+    {
+        object[] brushInstanciationData = new object[1];
+        brushInstanciationData[0] = PhotonNetwork.LocalPlayer.ActorNumber;
+        _brushGO = PhotonNetwork.Instantiate( brushPrefab.name, new Vector3( 0f, 5f, 0f ), Quaternion.identity, 0, brushInstanciationData );
+    }
+
+
+
 }

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 355347425}
   - component: {fileID: 355347432}
   - component: {fileID: 7314980952492392389}
+  - component: {fileID: -3884508759729987393}
   m_Layer: 0
   m_Name: DrawingBrush
   m_TagString: Untagged
@@ -33,6 +34,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.7253497, y: 1.403176, z: -7.218811}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -56,6 +58,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -200,7 +203,6 @@ MonoBehaviour:
   MP_Platform: 0
   MP_INPUT_PC_MeshPaintInput: 324
   MP_BrushSize: 0.35
-  MP_SmoothBrushMovement: 1
   MP_BSmoothMSpeed: 10
   MP_SmoothBrushRotation: 1
   MP_BSmoothRSpeed: 20
@@ -235,8 +237,23 @@ MonoBehaviour:
   - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   - {r: 0, g: 1, b: 0, a: 1}
   - {r: 0, g: 1, b: 1, a: 1}
+  - {r: 1, g: 0, b: 0.91764706, a: 1}
+  - {r: 1, g: 0.7254902, b: 0, a: 1}
+  - {r: 0.101960786, g: 0.5372549, b: 0, a: 1}
   MP_FollowBrushTransform: 1
   MP_ObjectForFollowing: {fileID: 6383999938955195672}
   MP_HideCustomBrushIfNotRaycasting: 0
   MP_RefreshMeshCollider: 1
   MeshPaintMode: 0
+--- !u!114 &-3884508759729987393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636921528585751100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ee955cc90a950b4db72837ef392e13d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
