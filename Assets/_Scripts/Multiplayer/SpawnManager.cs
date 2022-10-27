@@ -13,11 +13,16 @@ using UnityEngine;
 
 public class SpawnManager : SpawnManagerBase
 {
-    [Tooltip( "A reference to the character that PUN should spawn. This character must be setup using the PUN Multiplayer Manager." )]
+
+    [Tooltip( "A reference to the characters that PUN can spawn" )]
     [SerializeField] protected List<GameObject> m_Character;
 
     [SerializeField] protected GameObject brushPrefab;
     private GameObject _brushGO;
+
+    public PhotonView[] PlayersViews { get => m_Players; private set { } }
+
+
 
     public override void Start()
     {

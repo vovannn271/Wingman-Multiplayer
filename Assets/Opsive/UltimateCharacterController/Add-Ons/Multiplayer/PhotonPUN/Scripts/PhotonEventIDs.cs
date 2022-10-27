@@ -16,5 +16,10 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun
         public const byte StateChange = 157; // A state on the character was changed.
         public const byte ObjectInstantiation = 158; // An object was instantiated by the NetworkObjectPool.
         public const byte ObjectDestruction = 159; // An object was destroyed by the NetworkObjectPool.
+        public const byte MultiplayerStoppedDrawing = 160;
+        
+        
+        public const byte StartingCountDown = 180;//Start of Count Down before the game begin
+
     }
 }

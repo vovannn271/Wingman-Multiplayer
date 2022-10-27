@@ -5,10 +5,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Opsive.UltimateCharacterController.Traits;
+using Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun;
+using ExitGames.Client.Photon;
+
 public class BattleRoyaleMode : MonoBehaviour
 {
-    private int _numberOfPlayers = 0;
-    
+    private int _amountOfAlive = 0;
+    private SpawnManager _spawnManager;
+
+
+    //For BeforeGame Countdown
+    private bool startTimer = false;
+    private double timerIncrementValue;
+    private double startTime;
+    [SerializeField] private double timer = 20;
+    ExitGames.Client.Photon.Hashtable CustomeValue;
+
+
     public enum GameStage
     {
         Preparing,
@@ -16,38 +29,72 @@ public class BattleRoyaleMode : MonoBehaviour
         End
     }
 
+    private void Awake()
+    {
+        _spawnManager = FindObjectOfType<SpawnManager>();
+    }
+
     private void Start()
     {
         EventHandler.RegisterEvent<string, string>( "OnKill", OnKill );
 
+        StartBeforeGameCountdown();
     }
+
+
+    private void Update()
+    {
+        if (!startTimer)
+            return;
+
+        Debug.Log( timer - timerIncrementValue );
+        timerIncrementValue = PhotonNetwork.Time - startTime;
+
+        if (timerIncrementValue >= timer)
+        {
+            Debug.Log( "timer ended" );
+        }
+    }
+
+
+
+
+
+
     private void OnKill( string a, string b )
     {
-        _numberOfPlayers = 0;
-
-        var photonViews = UnityEngine.Object.FindObjectsOfType<PhotonView>();
-        foreach (var view in photonViews)
+        int aliveAm = 0;
+        foreach( var playerView in _spawnManager.PlayersViews)
         {
-            var player = view.Owner;
-            //Objects in the scene don't have an owner, its means view.owner will be null
-            if (player != null)
+            if ( playerView == null)
             {
-                if (view.gameObject.GetComponent<CharacterHealth>().IsAlive())
-                {
-                    _numberOfPlayers++;
-                }
+                continue;
+            }
+            CharacterHealth health = playerView.gameObject.GetComponent<CharacterHealth>();
+            if ( health != null && health.IsAlive())
+            {
+                aliveAm++;
             }
         }
-
-
+        Debug.Log( aliveAm );
+        _amountOfAlive = aliveAm;
     }
-    // Update is called once per frame
-    void Update()
+
+    private void StartBeforeGameCountdown()
     {
-        /*foreach (Player player in PhotonNetwork.PlayerList)
+        if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
-            print( player.NickName );
-        }*/
+            CustomeValue = new ExitGames.Client.Photon.Hashtable();
+            startTime = PhotonNetwork.Time;
+            startTimer = true;
+            CustomeValue.Add( "StartTime", startTime );
+            PhotonNetwork.CurrentRoom.SetCustomProperties( CustomeValue );
+        }
+        else
+        {
+            startTime = double.Parse( PhotonNetwork.CurrentRoom.CustomProperties["StartTime"].ToString() );
+            startTimer = true;
+        }
 
     }
 }

@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.EventSystems;
 using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun;
 
 /// <summary>
 /// MD(Mesh Deformation) Component: Mesh Paint
@@ -325,14 +326,14 @@ using Opsive.UltimateCharacterController.Character;
         }
 
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
-        PhotonNetwork.RaiseEvent( MultiplayerStoppedDrawingEvent, viewIDToSend, raiseEventOptions, ExitGames.Client.Photon.SendOptions.SendReliable );
+        PhotonNetwork.RaiseEvent( PhotonEventIDs.MultiplayerStoppedDrawing, viewIDToSend, raiseEventOptions, ExitGames.Client.Photon.SendOptions.SendReliable );
     }
 
     
     public void OnEvent( ExitGames.Client.Photon.EventData photonEvent )
     {
         byte eventCode = photonEvent.Code;
-        if (eventCode == MultiplayerStoppedDrawingEvent)
+        if (eventCode == PhotonEventIDs.MultiplayerStoppedDrawing)
         {
             SetUpNonMineDrawing( (int)photonEvent.CustomData );
         }
@@ -479,8 +480,11 @@ using Opsive.UltimateCharacterController.Character;
     //-Input and others
     private bool INTERNAL_GetInput( bool Up = false )
         {
-        
-
+        if (_drawingSkill == null)
+        {
+            Debug.Log( "No drawing skill" );
+            return false;
+        }
 
         if (!Up && Input.touchCount > 0)
         {
@@ -866,7 +870,6 @@ using Opsive.UltimateCharacterController.Character;
     #endregion
 
     #region Networking
-    public const byte MultiplayerStoppedDrawingEvent = 1;
 
     public void OnPhotonSerializeView( PhotonStream stream, PhotonMessageInfo info )
     {

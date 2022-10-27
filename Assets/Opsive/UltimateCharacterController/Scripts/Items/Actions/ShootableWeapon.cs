@@ -810,6 +810,7 @@ using Opsive.UltimateCharacterController.Networking.Game;
             // The projectile will already be spawned if it is always visible.
             if (m_SpawnedProjectile == null) {
                 m_SpawnedProjectile = ObjectPoolBase.Instantiate(m_Projectile, firePoint, rotation * m_Projectile.transform.rotation);
+                Debug.Log( "firepoing: " + fireDirection );
             } else {
                 // The projectile may be on the other side of an object (especially in the case of separate arms for the first person perspective). Perform a linecast
                 // to ensure the projectile doesn't go through any objects.

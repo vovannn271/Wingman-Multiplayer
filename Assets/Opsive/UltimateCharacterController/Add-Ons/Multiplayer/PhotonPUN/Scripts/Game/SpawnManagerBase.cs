@@ -41,9 +41,6 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
         [SerializeField] protected float m_InactiveTimeout = 60;
 
 
-        //[SerializeField] protected GameObject brushPrefab;
-       // private GameObject _brushGO;
-
         public SpawnMode Mode { get { return m_Mode; } set { m_Mode = value; } }
         public Transform SpawnLocation { get { return m_SpawnLocation; } set { m_SpawnLocation = value; } }
         public Vector3 SpawnLocationOffset { get { return m_SpawnLocationOffset; } set { m_SpawnLocationOffset = value; } }
