@@ -225,7 +225,7 @@ public class SpawnManager : SpawnManagerBase
 
     private void InstantiateBrush()
     {
-        object[] brushInstanciationData = new object[1];
+        object[] brushInstanciationData = new object[1];//send the Actor Number to change the color of drawing on Instanciation
         brushInstanciationData[0] = PhotonNetwork.LocalPlayer.ActorNumber;
         _brushGO = PhotonNetwork.Instantiate( brushPrefab.name, new Vector3( 0f, 5f, 0f ), Quaternion.identity, 0, brushInstanciationData );
     }

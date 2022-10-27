@@ -230,16 +230,16 @@ MonoBehaviour:
   MP_MaterialSlots: 0
   MP_Color_AvailableMaterials: []
   MP_Color_AvailableColors:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0, g: 1, b: 1, a: 1}
+  - {r: 0.101960786, g: 0.5372549, b: 0, a: 1}
+  - {r: 1, g: 0.7254902, b: 0, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 0, g: 0, b: 0, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 0, g: 1, b: 1, a: 1}
   - {r: 1, g: 0, b: 0.91764706, a: 1}
-  - {r: 1, g: 0.7254902, b: 0, a: 1}
-  - {r: 0.101960786, g: 0.5372549, b: 0, a: 1}
   MP_FollowBrushTransform: 1
   MP_ObjectForFollowing: {fileID: 6383999938955195672}
   MP_HideCustomBrushIfNotRaycasting: 0
