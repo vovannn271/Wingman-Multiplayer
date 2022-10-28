@@ -7,31 +7,35 @@ using UnityEngine;
 using Opsive.UltimateCharacterController.Traits;
 using Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun;
 using ExitGames.Client.Photon;
+using Opsive.UltimateCharacterController.Character;
 
-public class BattleRoyaleMode : MonoBehaviour
+public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
 {
     private int _amountOfAlive = 0;
     private SpawnManager _spawnManager;
 
+    private GameStage _gameStage = GameStage.Preparing;
 
     //For BeforeGame Countdown
     private bool startTimer = false;
     private double timerIncrementValue;
     private double startTime;
-    [SerializeField] private double timer = 20;
     ExitGames.Client.Photon.Hashtable CustomeValue;
-
+    [SerializeField] private double timer = 20;
 
     public enum GameStage
     {
         Preparing,
-        Beggining,
-        End
+        GameStart,
+        ZoneShrinking,
+        GameEnd
     }
 
     private void Awake()
     {
         _spawnManager = FindObjectOfType<SpawnManager>();
+
+
     }
 
     private void Start()
@@ -39,6 +43,7 @@ public class BattleRoyaleMode : MonoBehaviour
         EventHandler.RegisterEvent<string, string>( "OnKill", OnKill );
 
         StartBeforeGameCountdown();
+        PreparingToTheGame();
     }
 
 
@@ -53,6 +58,14 @@ public class BattleRoyaleMode : MonoBehaviour
         if (timerIncrementValue >= timer)
         {
             Debug.Log( "timer ended" );
+            startTimer = false;
+            object[] data = new object[1];
+            data[0] = GameStage.GameStart;
+
+            PhotonNetwork.RaiseEvent( PhotonEventIDs.GameStageChanged,
+                data,
+                new RaiseEventOptions() { CachingOption = EventCaching.AddToRoomCache, Receivers = ReceiverGroup.All},
+                SendOptions.SendReliable );
         }
     }
 
@@ -92,9 +105,56 @@ public class BattleRoyaleMode : MonoBehaviour
         }
         else
         {
-            startTime = double.Parse( PhotonNetwork.CurrentRoom.CustomProperties["StartTime"].ToString() );
-            startTimer = true;
+         //   startTime = double.Parse( PhotonNetwork.CurrentRoom.CustomProperties["StartTime"].ToString() );
+          //  startTimer = true;
         }
 
     }
+
+
+
+    public void OnEvent( EventData photonEvent )
+    {
+        if ( photonEvent.Code == PhotonEventIDs.GameStageChanged)
+        {
+            object[] data = (object[])photonEvent.CustomData;
+            _gameStage = (GameStage)data[0];
+
+            switch (_gameStage)
+            {
+                case GameStage.GameStart:
+                    StartTheGame();
+
+                break;
+                
+
+                default:
+                break;
+            }
+                
+        }
+    }
+
+    private void StartTheGame()
+    {
+        GameObject player = _spawnManager.Player;
+        
+        if ( player != null)
+        {
+            UltimateCharacterLocomotion locomotion = player.GetComponent<UltimateCharacterLocomotion>();
+            //locomotion.MovingSpeedParameterValue = 0;
+            locomotion.UseRootMotionPosition = false;
+            locomotion.RootMotionSpeedMultiplier = 1;
+        }
+    }
+
+    private void PreparingToTheGame()
+    {
+        GameObject player = _spawnManager.Player;
+        UltimateCharacterLocomotion locomotion = player.GetComponent<UltimateCharacterLocomotion>();
+        //locomotion.MovingSpeedParameterValue = 0;
+        locomotion.UseRootMotionPosition = true;
+        locomotion.RootMotionSpeedMultiplier = 0;
+    }
+
 }

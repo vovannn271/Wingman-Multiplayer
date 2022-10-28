@@ -20,6 +20,7 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun
         
         
         public const byte StartingCountDown = 180;//Start of Count Down before the game begin
+        public const byte GameStageChanged = 181;//When the gamestage was changed
 
     }
 }
