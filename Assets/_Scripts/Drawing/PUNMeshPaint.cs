@@ -480,11 +480,7 @@ using Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun;
     //-Input and others
     private bool INTERNAL_GetInput( bool Up = false )
         {
-        if (_drawingSkill == null)
-        {
-            Debug.Log( "No drawing skill" );
-            return false;
-        }
+
 
         if (!Up && Input.touchCount > 0)
         {

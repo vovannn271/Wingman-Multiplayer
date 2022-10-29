@@ -8,6 +8,9 @@ using Opsive.UltimateCharacterController.Traits;
 using Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun;
 using ExitGames.Client.Photon;
 using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Character;
+using Opsive.Shared.Game;
+using Opsive.UltimateCharacterController.Character.Abilities;
 
 public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
 {
@@ -15,6 +18,8 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
     private SpawnManager _spawnManager;
 
     private GameStage _gameStage = GameStage.Preparing;
+
+    private PunCharacter _localPunCharacter;
 
     //For BeforeGame Countdown
     private bool startTimer = false;
@@ -34,7 +39,7 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
     private void Awake()
     {
         _spawnManager = FindObjectOfType<SpawnManager>();
-
+        EventHandler.RegisterEvent<Player, GameObject>( "OnPlayerEnteredRoom", OnPlayerEnteredRoom );
 
     }
 
@@ -43,7 +48,6 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
         EventHandler.RegisterEvent<string, string>( "OnKill", OnKill );
 
         StartBeforeGameCountdown();
-        PreparingToTheGame();
     }
 
 
@@ -52,7 +56,7 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
         if (!startTimer)
             return;
 
-        Debug.Log( timer - timerIncrementValue );
+       // Debug.Log( timer - timerIncrementValue );
         timerIncrementValue = PhotonNetwork.Time - startTime;
 
         if (timerIncrementValue >= timer)
@@ -66,7 +70,9 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
                 data,
                 new RaiseEventOptions() { CachingOption = EventCaching.AddToRoomCache, Receivers = ReceiverGroup.All},
                 SendOptions.SendReliable );
-        }
+        }    
+
+
     }
 
 
@@ -74,25 +80,9 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
 
 
 
-    private void OnKill( string a, string b )
-    {
-        int aliveAm = 0;
-        foreach( var playerView in _spawnManager.PlayersViews)
-        {
-            if ( playerView == null)
-            {
-                continue;
-            }
-            CharacterHealth health = playerView.gameObject.GetComponent<CharacterHealth>();
-            if ( health != null && health.IsAlive())
-            {
-                aliveAm++;
-            }
-        }
-        Debug.Log( aliveAm );
-        _amountOfAlive = aliveAm;
-    }
 
+
+    #region ModeLogic
     private void StartBeforeGameCountdown()
     {
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
@@ -137,24 +127,75 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
 
     private void StartTheGame()
     {
-        GameObject player = _spawnManager.Player;
-        
-        if ( player != null)
+        if (_localPunCharacter == null)
         {
-            UltimateCharacterLocomotion locomotion = player.GetComponent<UltimateCharacterLocomotion>();
-            //locomotion.MovingSpeedParameterValue = 0;
-            locomotion.UseRootMotionPosition = false;
-            locomotion.RootMotionSpeedMultiplier = 1;
+            _localPunCharacter = _spawnManager.Player.GetCachedComponent<PunCharacter>();
+        }
+        
+        if ( _gameStage == GameStage.Preparing)
+        {
+            _gameStage = GameStage.GameStart;
+        }
+
+        if (_localPunCharacter != null)
+        {
+            WaitAfkAbility afkAbility = _localPunCharacter.CharacterLocomotion.GetAbility<WaitAfkAbility>();
+            _localPunCharacter.CharacterLocomotion.TryStopAbility( afkAbility );
+            Debug.Log( "Start the Game" );
+
         }
     }
 
+
     private void PreparingToTheGame()
     {
-        GameObject player = _spawnManager.Player;
-        UltimateCharacterLocomotion locomotion = player.GetComponent<UltimateCharacterLocomotion>();
-        //locomotion.MovingSpeedParameterValue = 0;
-        locomotion.UseRootMotionPosition = true;
-        locomotion.RootMotionSpeedMultiplier = 0;
+        WaitAfkAbility afkAbility = _localPunCharacter.CharacterLocomotion.GetAbility<WaitAfkAbility>();
+        _localPunCharacter.CharacterLocomotion.TryStartAbility( afkAbility );
+    }
+
+    private void OnPlayerEnteredRoom( Player player, GameObject character )
+    {
+        if( player.IsLocal != true)
+        {
+            return;
+        }
+        _localPunCharacter = character.GetCachedComponent<PunCharacter>();
+
+        if ( _gameStage == GameStage.Preparing)
+        {
+            Debug.Log( "Preparing To Game Stage" );
+
+             PreparingToTheGame();
+        }
+    }
+
+    #endregion
+
+
+
+
+
+    private void OnKill( string a, string b )
+    {
+        int aliveAm = 0;
+        foreach (var playerView in _spawnManager.PlayersViews)
+        {
+            if (playerView == null)
+            {
+                continue;
+            }
+            CharacterHealth health = playerView.gameObject.GetComponent<CharacterHealth>();
+            if (health != null && health.IsAlive())
+            {
+                aliveAm++;
+            }
+        }
+        Debug.Log( aliveAm );
+        _amountOfAlive = aliveAm;
+    }
+    private void OnDestroy()
+    {
+        EventHandler.UnregisterEvent<Player, GameObject>( "OnPlayerEnteredRoom", OnPlayerEnteredRoom );
     }
 
 }

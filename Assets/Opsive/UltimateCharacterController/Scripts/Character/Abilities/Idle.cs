@@ -47,7 +47,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
             if (!base.CanStartAbility()) {
                 return false;
             }
-
+            
             // The ability can be started when the character is not moving and is on the ground.
             if (!m_CharacterLocomotion.Moving && m_CharacterLocomotion.Grounded) {
                 if (m_CanStartTime == -1) {

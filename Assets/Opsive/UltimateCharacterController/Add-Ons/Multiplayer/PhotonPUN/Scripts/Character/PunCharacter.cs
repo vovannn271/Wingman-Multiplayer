@@ -31,6 +31,8 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Charac
         private InventoryBase m_Inventory;
         private bool m_ItemsPickedUp;
 
+        public UltimateCharacterLocomotion CharacterLocomotion { get { return m_CharacterLocomotion; } private set { } }
+
         /// <summary>
         /// Initialize the default values.
         /// </summary>
