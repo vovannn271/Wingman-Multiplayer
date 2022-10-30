@@ -185,6 +185,8 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Charac
                     m_NetworkLookPosition = lookPosition;
                 }
 
+
+                //var lookDirection = m_LookSource.LookDirection( true );
                 var lookDirection = m_LookSource.LookDirection( m_NetworkLookPosition, true, -1, false, false );//same
                 //var lookDirection = m_LookSource.LookDirection( m_LookSource.LookPosition( false ), true, -1, false, false );//best
                 //var lookDirection = m_LookSource.LookDirection(this.transform.position,true, -1, false, false);//good

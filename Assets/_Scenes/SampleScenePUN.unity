@@ -299,6 +299,7 @@ MonoBehaviour:
   m_Character:
   - {fileID: 5003162522626234791, guid: 4c611999dd1a1504d9411ea094b1c5bf, type: 3}
   - {fileID: 2566017701663192165, guid: d8569d59b47ec014582655525cb91aac, type: 3}
+  - {fileID: 2566017701663192165, guid: f74454eb1436aa544b4d3dfc650ac5af, type: 3}
   brushPrefab: {fileID: 1636921528585751100, guid: 565b3604a8faadd419e8a583d5275c23, type: 3}
 --- !u!114 &323542521
 MonoBehaviour:
@@ -518,6 +519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ed96bec7146cd7409b3d6af9dcd6c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: 20
 --- !u!1 &613113807
 GameObject:
   m_ObjectHideFlags: 0
@@ -2026,9 +2028,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1445831474}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55df62ce30da8fa49a9f166e74096559, type: 3}
+  m_Script: {fileID: 11500000, guid: 574a7d1ad7211644db3be6b64e19664f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aliveAmountTMP: {fileID: 2042730048}
 --- !u!1001 &1446390834
 PrefabInstance:
   m_ObjectHideFlags: 0

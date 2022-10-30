@@ -16,7 +16,6 @@ public class KillFeedUI : MonoBehaviour
 
     private void OnKill(string killer, string killed)
     {
-        Debug.Log( "Registered Event" );
         GameObject temp = ObjectPool.Instantiate( killListingPrefab, transform);
         temp.transform.SetSiblingIndex( 0 );
         KillListing tempListing = temp.GetComponent<KillListing>();

@@ -40,12 +40,17 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         _spawnManager = FindObjectOfType<SpawnManager>();
         EventHandler.RegisterEvent<Player, GameObject>( "OnPlayerEnteredRoom", OnPlayerEnteredRoom );
+        EventHandler.RegisterEvent<Player, GameObject>( "OnPlayerLeftRoom", OnPlayerLeftRoom );
+        EventHandler.RegisterEvent<int>( "OnAliveAmountChanged", OnAliveAmountChanged );
+        EventHandler.RegisterEvent( gameObject, "OnWillRespawn", OnRespawn );
+        EventHandler.RegisterEvent<string, string>( "OnKill", OnKill );
+
 
     }
 
+
     private void Start()
     {
-        EventHandler.RegisterEvent<string, string>( "OnKill", OnKill );
 
         StartBeforeGameCountdown();
     }
@@ -114,14 +119,18 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
             {
                 case GameStage.GameStart:
                     StartTheGame();
-
-                break;
+                    break;
                 
 
                 default:
                 break;
-            }
-                
+            }       
+        }
+        else if ( photonEvent.Code == PhotonEventIDs.AliveAmountChanged)
+        {
+            object[] data = (object[])photonEvent.CustomData;
+            int newAmount = (int)data[0];
+            EventHandler.ExecuteEvent<int>( "OnAliveAmountChanged", newAmount );
         }
     }
 
@@ -142,7 +151,11 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
             WaitAfkAbility afkAbility = _localPunCharacter.CharacterLocomotion.GetAbility<WaitAfkAbility>();
             _localPunCharacter.CharacterLocomotion.TryStopAbility( afkAbility );
             Debug.Log( "Start the Game" );
+        }
 
+        if (PhotonNetwork.IsMasterClient)
+        {
+            RecountAlivePlayers();
         }
     }
 
@@ -169,6 +182,18 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
         }
     }
 
+    private void OnPlayerLeftRoom( Player player, GameObject character )
+    {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+        if (character.GetCachedComponent<Health>().IsAlive())
+        {
+            RecountAlivePlayers();
+        }
+    }
+
     #endregion
 
 
@@ -177,6 +202,28 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
 
     private void OnKill( string a, string b )
     {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            RecountAlivePlayers();
+        }
+    }
+
+
+    private void OnRespawn()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            RecountAlivePlayers();
+        }
+    }
+
+    private void RecountAlivePlayers()
+    {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+
         int aliveAm = 0;
         foreach (var playerView in _spawnManager.PlayersViews)
         {
@@ -190,12 +237,32 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
                 aliveAm++;
             }
         }
-        Debug.Log( aliveAm );
-        _amountOfAlive = aliveAm;
+        if ( _amountOfAlive != aliveAm)
+        {
+            object[] data = new object[1];
+            data[0] = aliveAm;
+
+            PhotonNetwork.RaiseEvent( PhotonEventIDs.AliveAmountChanged,
+                data,
+                new RaiseEventOptions() { Receivers = ReceiverGroup.All },
+                SendOptions.SendReliable );
+        }
     }
+
+    
+    private void OnAliveAmountChanged( int newAmount)
+    {
+        _amountOfAlive = newAmount;
+        Debug.Log( "new amount of alive players: " + newAmount );
+    }
+
     private void OnDestroy()
     {
         EventHandler.UnregisterEvent<Player, GameObject>( "OnPlayerEnteredRoom", OnPlayerEnteredRoom );
+        EventHandler.UnregisterEvent<Player, GameObject>( "OnPlayerLeftRoom", OnPlayerLeftRoom );
+        EventHandler.UnregisterEvent<int>( "OnAliveAmountChanged", OnAliveAmountChanged );
+        EventHandler.UnregisterEvent( gameObject, "OnWillRespawn", OnRespawn );
+        EventHandler.UnregisterEvent<string, string>( "OnKill", OnKill );
     }
 
 }
