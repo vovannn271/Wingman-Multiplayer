@@ -14,7 +14,7 @@ public class AmountAliveUI : MonoBehaviour
 
     private void OnAliveAmountChanged( int amount )
     {
-        aliveAmountTMP.text = "Alive : " + amount;
+        aliveAmountTMP.text = "Players left: " + amount;
     }
 
     private void OnDestroy()

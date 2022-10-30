@@ -539,6 +539,21 @@ namespace Opsive.UltimateCharacterController.Camera
             if (m_Anchor == null) {
                 m_Anchor = m_CharacterTransform;
             }
+        }  
+        
+        public void ChangeAnchorToOtherPlayer( GameObject otherPlayer)
+        {
+            // Assign the anchor to the bone transform if auto anchor is enabled. Otherwise use the character's Transform.
+            Transform anchor = null;
+            if (m_AutoAnchor && (anchor = otherPlayer.GetComponent<Animator>().GetBoneTransform(m_AutoAnchorBone)) != null) {
+                m_Anchor = anchor;
+            } else if (m_Anchor != null && !m_Anchor.IsChildOf( otherPlayer.transform)) {
+                m_Anchor = null;
+            }
+
+            if (m_Anchor == null) {
+                m_Anchor = otherPlayer.transform;
+            }
         }
 
         /// <summary>

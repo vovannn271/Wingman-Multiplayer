@@ -11,16 +11,19 @@ using Opsive.UltimateCharacterController.Character;
 using Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Character;
 using Opsive.Shared.Game;
 using Opsive.UltimateCharacterController.Character.Abilities;
+using Opsive.UltimateCharacterController.Camera;
 
 public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
 {
-    private int _amountOfAlive = 0;
     private SpawnManager _spawnManager;
-
-    private GameStage _gameStage = GameStage.Preparing;
-
     private PunCharacter _localPunCharacter;
+    private CameraController _cameraController;
 
+
+
+    //GameMode logic vars
+    private int _amountOfAlive = 0;
+    private GameStage _gameStage = GameStage.Preparing;
     //For BeforeGame Countdown
     private bool startTimer = false;
     private double timerIncrementValue;
@@ -39,15 +42,20 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
     private void Awake()
     {
         _spawnManager = FindObjectOfType<SpawnManager>();
+        _cameraController = FindObjectOfType<CameraController>();
+
         EventHandler.RegisterEvent<Player, GameObject>( "OnPlayerEnteredRoom", OnPlayerEnteredRoom );
         EventHandler.RegisterEvent<Player, GameObject>( "OnPlayerLeftRoom", OnPlayerLeftRoom );
         EventHandler.RegisterEvent<int>( "OnAliveAmountChanged", OnAliveAmountChanged );
-        EventHandler.RegisterEvent( gameObject, "OnWillRespawn", OnRespawn );
         EventHandler.RegisterEvent<string, string>( "OnKill", OnKill );
 
 
     }
 
+    private void OnDeath( Vector3 position, Vector3 force, GameObject attacker )
+    {
+        _cameraController.ChangeAnchorToOtherPlayer( attacker );
+    }
 
     private void Start()
     {
@@ -173,6 +181,9 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
             return;
         }
         _localPunCharacter = character.GetCachedComponent<PunCharacter>();
+        EventHandler.RegisterEvent( _localPunCharacter.gameObject, "OnRespawn", OnRespawn );
+        EventHandler.RegisterEvent<Vector3, Vector3, GameObject>( _localPunCharacter.gameObject, "OnDeath", OnDeath );
+
 
         if ( _gameStage == GameStage.Preparing)
         {
@@ -200,7 +211,7 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
 
 
 
-    private void OnKill( string a, string b )
+    private void OnKill( string killer, string killed )
     {
         if (PhotonNetwork.IsMasterClient)
         {
@@ -261,8 +272,10 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
         EventHandler.UnregisterEvent<Player, GameObject>( "OnPlayerEnteredRoom", OnPlayerEnteredRoom );
         EventHandler.UnregisterEvent<Player, GameObject>( "OnPlayerLeftRoom", OnPlayerLeftRoom );
         EventHandler.UnregisterEvent<int>( "OnAliveAmountChanged", OnAliveAmountChanged );
-        EventHandler.UnregisterEvent( gameObject, "OnWillRespawn", OnRespawn );
         EventHandler.UnregisterEvent<string, string>( "OnKill", OnKill );
+        EventHandler.UnregisterEvent( _localPunCharacter.gameObject, "OnRespawn", OnRespawn );
+        EventHandler.UnregisterEvent<Vector3, Vector3, GameObject>( _localPunCharacter.gameObject, "OnDeath", OnDeath );
+
     }
 
 }
