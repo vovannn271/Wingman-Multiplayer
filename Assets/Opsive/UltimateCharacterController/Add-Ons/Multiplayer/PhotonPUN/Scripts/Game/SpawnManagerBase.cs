@@ -22,6 +22,7 @@ namespace Opsive.UltimateCharacterController.AddOns.Multiplayer.PhotonPun.Game
     /// </summary>
     public abstract class SpawnManagerBase : MonoBehaviourPunCallbacks, IOnEventCallback
     {
+        
         // Specifies the location that the character should spawn.
         public enum SpawnMode
         {

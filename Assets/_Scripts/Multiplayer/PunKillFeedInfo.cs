@@ -62,6 +62,13 @@ public class PunKillFeedInfo : MonoBehaviour
     private void OnDestroy()
     {
         EventHandler.UnregisterEvent<Player, GameObject>( "OnPlayerEnteredRoom", OnPlayerEnteredRoom );
-        _health.OnDeathEvent.RemoveAllListeners();
+        if ( _health != null)
+        {
+            _health.OnDeathEvent.RemoveAllListeners();
+        }
+        else
+        {
+            Debug.Log( "local character is already destroyed, can not unregister event" );
+        }
     }
 }

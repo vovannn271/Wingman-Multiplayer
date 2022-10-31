@@ -18,7 +18,7 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
     private SpawnManager _spawnManager;
     private PunCharacter _localPunCharacter;
     private CameraController _cameraController;
-
+    private InGameUIController _inGameUIController;
 
 
     //GameMode logic vars
@@ -29,7 +29,7 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
     private double timerIncrementValue;
     private double startTime;
     ExitGames.Client.Photon.Hashtable CustomeValue;
-    [SerializeField] private double timer = 20;
+    [SerializeField] private double timer = 10d;
 
     public enum GameStage
     {
@@ -43,6 +43,7 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         _spawnManager = FindObjectOfType<SpawnManager>();
         _cameraController = FindObjectOfType<CameraController>();
+        _inGameUIController = FindObjectOfType<InGameUIController>();
 
         EventHandler.RegisterEvent<Player, GameObject>( "OnPlayerEnteredRoom", OnPlayerEnteredRoom );
         EventHandler.RegisterEvent<Player, GameObject>( "OnPlayerLeftRoom", OnPlayerLeftRoom );
@@ -55,11 +56,11 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
     private void OnDeath( Vector3 position, Vector3 force, GameObject attacker )
     {
         _cameraController.ChangeAnchorToOtherPlayer( attacker );
+        _inGameUIController.ShowUIOnPlayerDeath();
     }
 
     private void Start()
     {
-
         StartBeforeGameCountdown();
     }
 
@@ -273,8 +274,17 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
         EventHandler.UnregisterEvent<Player, GameObject>( "OnPlayerLeftRoom", OnPlayerLeftRoom );
         EventHandler.UnregisterEvent<int>( "OnAliveAmountChanged", OnAliveAmountChanged );
         EventHandler.UnregisterEvent<string, string>( "OnKill", OnKill );
-        EventHandler.UnregisterEvent( _localPunCharacter.gameObject, "OnRespawn", OnRespawn );
-        EventHandler.UnregisterEvent<Vector3, Vector3, GameObject>( _localPunCharacter.gameObject, "OnDeath", OnDeath );
+        if ( _localPunCharacter != null)
+        {
+            EventHandler.UnregisterEvent( _localPunCharacter.gameObject, "OnRespawn", OnRespawn );
+            EventHandler.UnregisterEvent<Vector3, Vector3, GameObject>( _localPunCharacter.gameObject, "OnDeath", OnDeath );
+            
+        }
+        else
+        {
+            Debug.Log( "local character is already destroyed, can not unregister event" );
+        }
+        
 
     }
 

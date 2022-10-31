@@ -10,6 +10,7 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpawnManager : SpawnManagerBase
 {
@@ -236,5 +237,20 @@ public class SpawnManager : SpawnManagerBase
     }
 
 
+    public void DisconnectPlayer()
+    {
+        StartCoroutine( DisconnectAndLoad() );
+    }
+    
+    private IEnumerator DisconnectAndLoad()
+    {
+        PhotonNetwork.Disconnect();
+        //PhotonNetwork.LeaveLobby();
+
+        while (PhotonNetwork.IsConnected)
+            yield return null;
+
+        SceneManager.LoadScene( SceneNames.LobbyScene );
+    }
 
 }
