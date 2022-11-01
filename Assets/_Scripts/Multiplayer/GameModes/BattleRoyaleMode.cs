@@ -181,7 +181,7 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
         {
             return;
         }
-        _localPunCharacter = character.GetCachedComponent<PunCharacter>();
+        SetupLocalCharacter( character );
         EventHandler.RegisterEvent( _localPunCharacter.gameObject, "OnRespawn", OnRespawn );
         EventHandler.RegisterEvent<Vector3, Vector3, GameObject>( _localPunCharacter.gameObject, "OnDeath", OnDeath );
 
@@ -278,19 +278,13 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
         EventHandler.UnregisterEvent<Player, GameObject>( "OnPlayerEnteredRoom", OnPlayerEnteredRoom );
         EventHandler.UnregisterEvent<Player, GameObject>( "OnPlayerLeftRoom", OnPlayerLeftRoom );
         EventHandler.UnregisterEvent<int>( "OnAliveAmountChanged", OnAliveAmountChanged );
-        EventHandler.UnregisterEvent<string, string>( "OnKill", OnKill );
-       /* if ( _localPunCharacter != null)
-        {
-            EventHandler.UnregisterEvent( _localPunCharacter.gameObject, "OnRespawn", OnRespawn );
-            EventHandler.UnregisterEvent<Vector3, Vector3, GameObject>( _localPunCharacter.gameObject, "OnDeath", OnDeath );
-            
-        }
-        else
-        {
-            Debug.Log( "local character is already destroyed, can not unregister event" );
-        }*/
-        
+        EventHandler.UnregisterEvent<string, string>( "OnKill", OnKill );      
+    }
 
+    private void SetupLocalCharacter( GameObject character )
+    {
+        _localPunCharacter = character.GetCachedComponent<PunCharacter>();
+        bl_MiniMapUtils.GetMiniMap( 0 ).Target = character.transform;
     }
 
 }
