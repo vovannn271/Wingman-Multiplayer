@@ -196,6 +196,11 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
 
     private void OnPlayerLeftRoom( Player player, GameObject character )
     {
+        if ( player.IsLocal)
+        {
+            EventHandler.UnregisterEvent( _localPunCharacter.gameObject, "OnRespawn", OnRespawn );
+            EventHandler.UnregisterEvent<Vector3, Vector3, GameObject>( _localPunCharacter.gameObject, "OnDeath", OnDeath );
+        }
         if (!PhotonNetwork.IsMasterClient)
         {
             return;
@@ -274,7 +279,7 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
         EventHandler.UnregisterEvent<Player, GameObject>( "OnPlayerLeftRoom", OnPlayerLeftRoom );
         EventHandler.UnregisterEvent<int>( "OnAliveAmountChanged", OnAliveAmountChanged );
         EventHandler.UnregisterEvent<string, string>( "OnKill", OnKill );
-        if ( _localPunCharacter != null)
+       /* if ( _localPunCharacter != null)
         {
             EventHandler.UnregisterEvent( _localPunCharacter.gameObject, "OnRespawn", OnRespawn );
             EventHandler.UnregisterEvent<Vector3, Vector3, GameObject>( _localPunCharacter.gameObject, "OnDeath", OnDeath );
@@ -283,7 +288,7 @@ public class BattleRoyaleMode : MonoBehaviourPunCallbacks, IOnEventCallback
         else
         {
             Debug.Log( "local character is already destroyed, can not unregister event" );
-        }
+        }*/
         
 
     }
